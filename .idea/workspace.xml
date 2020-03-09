@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1a0cbf1f-a550-4ed4-bc5e-9b56b5d4d906" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1YuO2vMpt7JNpq9fMPfMTjegVGZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="/usr/lib/node_modules/prettier" />
+    <property name="settings.editor.selected.configurable" value="watcher.settings" />
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1a0cbf1f-a550-4ed4-bc5e-9b56b5d4d906" name="Default Changelist" comment="" />
+      <created>1583788808649</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1583788808649</updated>
+      <workItem from="1583788810654" duration="7927000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="603" y="248" key="EditFileWatcherDialog" timestamp="1583790748984">
+      <screen x="0" y="19" width="1920" height="1061" />
+    </state>
+    <state x="603" y="248" key="EditFileWatcherDialog/0.19.1920.1061@0.19.1920.1061" timestamp="1583790748984" />
+    <state x="451" y="135" key="SettingsEditor" timestamp="1583790749948">
+      <screen x="0" y="19" width="1920" height="1061" />
+    </state>
+    <state x="451" y="135" key="SettingsEditor/0.19.1920.1061@0.19.1920.1061" timestamp="1583790749948" />
+    <state x="601" y="255" width="717" height="562" key="find.popup" timestamp="1583796119775">
+      <screen x="0" y="19" width="1920" height="1061" />
+    </state>
+    <state x="601" y="255" width="717" height="562" key="find.popup/0.19.1920.1061@0.19.1920.1061" timestamp="1583796119775" />
+    <state x="622" y="239" key="run.anything.popup" timestamp="1583793653498">
+      <screen x="0" y="19" width="1920" height="1061" />
+    </state>
+    <state x="622" y="239" key="run.anything.popup/0.19.1920.1061@0.19.1920.1061" timestamp="1583793653498" />
+  </component>
+</project>
