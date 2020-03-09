@@ -24,4 +24,8 @@ export class CountryDataService {
             'Varsinais-Suomi': 480626,
         };
     }
+
+    static getFinlandsPopulation() {
+        return Object.values(CountryDataService.getRegionPopulations()).reduce((a, b) => a + b);
+    }
 }

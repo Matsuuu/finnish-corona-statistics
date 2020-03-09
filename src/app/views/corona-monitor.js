@@ -74,7 +74,6 @@ class CoronaMonitor extends LitElement {
 
     async getApiData() {
         this.apiData = await fetch(this.apiUrl).then(res => res.json());
-
         let infectionsByRegion = this.getInfectionsByRegion();
         let infectionsBySourceCountry = this.getInfectionsBySourceCountry();
         let infectionsByDay = this.getInfectionsByDay();
@@ -84,6 +83,7 @@ class CoronaMonitor extends LitElement {
         this.createSourceCountryChart(infectionsBySourceCountry);
         this.createInfectionsByDayChart(infectionsByDay, deathsByDay);
         this.createMortalityRateNumber(mortalityData);
+        this.createInfectionsSourcePercentageChart(infectionsBySourceCountry);
     }
 
     getInfectionsByRegion() {
@@ -167,10 +167,22 @@ class CoronaMonitor extends LitElement {
 
     createMortalityRateNumber(mortalityData) {
         let infectionCountDiv = this.shadowRoot.querySelector('#infection-count');
+        let infectionPercentageDiv = this.shadowRoot.querySelector('#infection-percentage');
         let mortalityRateDiv = this.shadowRoot.querySelector('#mortality-rate');
+        console.log(CountryDataService.getFinlandsPopulation());
 
         infectionCountDiv.querySelector('h2').innerText = mortalityData.confirmedCount;
+        infectionPercentageDiv.querySelector('h2').innerText = `${(
+            (mortalityData.confirmedCount / CountryDataService.getFinlandsPopulation()) *
+            100
+        ).toFixed(5)} %`;
         mortalityRateDiv.querySelector('h2').innerText = mortalityData.mortalityRate + '%';
+    }
+
+    createInfectionsSourcePercentageChart(infectionsBySourceCountry) {
+        let chartConfig = ChartDataBuilder.getInfectionsSourcePercentage(infectionsBySourceCountry);
+        let ctx = this.shadowRoot.querySelector('#infections-source-country-percentages-chart-area').getContext('2d');
+        new Chart(ctx, chartConfig);
     }
 
     render() {
@@ -180,14 +192,21 @@ class CoronaMonitor extends LitElement {
                 <div id="infections-by-region">
                     <canvas id="infections-by-region-chart-area"></canvas>
                 </div>
-                <div id="infection-source-countries">
-                    <canvas id="infection-source-countries-chart-area"></canvas>
-                </div>
                 <div id="infections-by-day">
                     <canvas id="infections-by-day-chart-area"></canvas>
                 </div>
+                <div id="infection-source-countries">
+                    <canvas id="infection-source-countries-chart-area"></canvas>
+                </div>
+                <div id="infections-source-country-percentages">
+                    <canvas id="infections-source-country-percentages-chart-area"></canvas>
+                </div>
                 <div class="numbers" id="infection-count">
                     <p>Tartuntojen määrä</p>
+                    <h2></h2>
+                </div>
+                <div class="numbers" id="infection-percentage">
+                    <p>Tartunnan saaneiden %</p>
                     <h2></h2>
                 </div>
 

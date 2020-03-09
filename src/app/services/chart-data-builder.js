@@ -159,4 +159,43 @@ export default class ChartDataBuilder {
             },
         };
     }
+
+    static getInfectionsSourcePercentage(infectionsBySourceCountry) {
+        console.log(infectionsBySourceCountry);
+        let finnishSources = 0;
+        let foreignSources = 0;
+        for (let source of Object.keys(infectionsBySourceCountry)) {
+            if (source === 'FIN') {
+                finnishSources += infectionsBySourceCountry[source];
+            } else {
+                foreignSources += infectionsBySourceCountry[source];
+            }
+        }
+        console.log({ finnishSources, foreignSources });
+        return {
+            type: 'doughnut',
+            data: {
+                datasets: [
+                    {
+                        data: [finnishSources, foreignSources],
+                        backgroundColor: [colorArray[0], colorArray[1]],
+                    },
+                ],
+                labels: ['Suomesta lähtöisin olevat tartunnat', 'Ulkomailta lähtöisin olevat tartunnat'],
+            },
+            options: {
+                title: {
+                    fontSize: 18,
+                    display: true,
+                    text: 'Tartuntojen lähdemaat',
+                },
+                legend: {
+                    position: window.innerWidth > 720 ? 'right' : 'bottom',
+                    labels: {
+                        fontSize: 18,
+                    },
+                },
+            },
+        };
+    }
 }
