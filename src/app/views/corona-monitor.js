@@ -3,6 +3,7 @@ import { CountryDataService } from '../services/country-data-service';
 import dayjs from 'dayjs';
 import ChartDataBuilder from '../services/chart-data-builder';
 import Chart from 'chart.js';
+import coronaData from 'corona-data';
 
 class CoronaMonitor extends LitElement {
     static get properties() {
@@ -73,7 +74,7 @@ class CoronaMonitor extends LitElement {
     }
 
     async getApiData() {
-        this.apiData = await fetch(this.apiUrl).then(res => res.json());
+        this.apiData = coronaData;
         let infectionsByRegion = this.getInfectionsByRegion();
         let infectionsBySourceCountry = this.getInfectionsBySourceCountry();
         let infectionsByDay = this.getInfectionsByDay();
