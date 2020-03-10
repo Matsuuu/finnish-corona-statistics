@@ -15,14 +15,14 @@ Technology used:
 - Node-Fetch
 
 
-###Running the environment
+### Running the environment
 
 Navigate to the root of the project, and run `./run-server.sh`
 
 This will initiate a custom script running ES dev server and Webpack.
 
 
-###Fetching latest information from the API
+### Fetching latest information from the API
 
 Due to the request of the API host, data will not be fetched every time a user visits the site, but every hour using a cron job.
 
