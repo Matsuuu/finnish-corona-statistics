@@ -150,6 +150,7 @@ class CoronaMonitor extends LitElement {
         let mortalityData = this.getMortalityRate();
         this.createRegionalInfectionChart(infectionsByRegion);
         this.createSourceCountryChart(infectionsBySourceCountry);
+        this.createInfectionsCumulativeChart(infectionsByDay);
         this.createInfectionsByDayChart(infectionsByDay, deathsByDay);
         this.createMortalityRateNumber(mortalityData);
         this.createInfectionsSourcePercentageChart(infectionsBySourceCountry);
@@ -245,6 +246,12 @@ class CoronaMonitor extends LitElement {
         new Chart(ctx, chartConfig);
     }
 
+    createInfectionsCumulativeChart(infectionsByDay) {
+        let chartConfig = ChartDataBuilder.getInfectionsByDayChartCumulative(infectionsByDay);
+        let ctx = this.shadowRoot.querySelector('#infections-total-cumulative-chart-area').getContext('2d');
+        new Chart(ctx, chartConfig);
+    }
+
     createMortalityRateNumber(mortalityData) {
         let infectionCountDiv = this.shadowRoot.querySelector('#infection-count');
         let infectionPercentageDiv = this.shadowRoot.querySelector('#infection-percentage');
@@ -277,6 +284,9 @@ class CoronaMonitor extends LitElement {
                 </div>
                 <div id="infections-by-day">
                     <canvas id="infections-by-day-chart-area"></canvas>
+                </div>
+                <div id="infections-total-cumulative">
+                    <canvas id="infections-total-cumulative-chart-area"></canvas>
                 </div>
                 <h3>Tartuntojen lähde</h3>
                 <div id="infection-source-countries">

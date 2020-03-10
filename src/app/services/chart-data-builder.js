@@ -218,4 +218,71 @@ export default class ChartDataBuilder {
             },
         };
     }
+
+    static getInfectionsByDayChartCumulative(infectionsByDay) {
+        console.log(infectionsByDay);
+        let dates = [...new Set([...Object.keys(infectionsByDay)])];
+        let firstDay = dates[0];
+        let lastDay = Date.now() / 1000 - 86400;
+        let lastAddedDate = firstDay - 86400; // Reduce on day
+        let labels = [];
+        while (lastAddedDate <= lastDay) {
+            lastAddedDate += 86400;
+            labels.push(lastAddedDate);
+        }
+        let infectionsByDayData = [];
+        let total = 0;
+        for (let label of labels) {
+            total += infectionsByDay[label] ? infectionsByDay[label] : 0;
+            infectionsByDayData.push(total);
+        }
+        return {
+            type: 'line',
+            data: {
+                labels: labels.map(label => dayjs(label * 1000).format('DD-MM-YYYY')),
+                datasets: [
+                    {
+                        label: 'Sairastuneiden määrä (Kumulatiivinen)',
+                        data: infectionsByDayData,
+                        backgroundColor: colorArray[0],
+                        fill: 'start',
+                    },
+                ],
+            },
+            options: {
+                aspectRatio: window.innerWidth > 720 ? 1.75 : 0.75,
+                title: {
+                    display: true,
+                    text: 'Sairastuneiden määrä (Kumulatiivinen)',
+                    fontSize: 18,
+                },
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        fontSize: 18,
+                    },
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                responsive: true,
+                scales: {
+                    xAxes: [
+                        {
+                            stacked: true,
+                            ticks: {
+                                maxTicksLimit: 10,
+                            },
+                        },
+                    ],
+                    yAxes: [
+                        {
+                            stacked: true,
+                        },
+                    ],
+                },
+            },
+        };
+    }
 }
