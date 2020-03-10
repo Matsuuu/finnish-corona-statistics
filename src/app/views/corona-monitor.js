@@ -18,15 +18,39 @@ class CoronaMonitor extends LitElement {
             css`
                 :host {
                     font-family: 'Roboto', sans-serif;
+                    background: #fafafa;
+                    display: block;
                 }
+                .about-section {
+                    width: 50%;
+                    display: flex;
+                    margin: 0 auto;
+                    flex-direction: column;
+                    color: #484848;
+                }
+
+                .about-section > h1 {
+                    margin: 0.5rem 0;
+                }
+
                 .data-wrapper {
                     display: flex;
                     flex-direction: row;
                     flex-wrap: wrap;
+                    margin: 0 10%;
+                    justify-content: center;
                 }
                 .data-wrapper > div {
-                    flex-basis: 45%;
+                    background: #fff;
+                    flex-basis: 40%;
                     margin-bottom: 5%;
+                    box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14),
+                        0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+                    padding: 1rem;
+                    margin: 1rem;
+                    border-radius: 10px;
+                    display: flex;
+                    align-items: center;
                 }
 
                 .data-wrapper > .numbers {
@@ -38,21 +62,31 @@ class CoronaMonitor extends LitElement {
                 }
 
                 .data-wrapper > .numbers > h2 {
-                    font-size: 4rem;
+                    font-size: 3rem;
                 }
                 .data-wrapper > .numbers > p {
                     font-size: 1.4rem;
                 }
 
                 @media only screen and (max-width: 780px) {
+                    .data-wrapper {
+                    margin: 0 1%;
+                    }
+                
                     .data-wrapper > div {
-                        flex-basis: 100%;
+                        flex-basis: 95%;
                         margin-bottom: 5%;
                     }
 
                     .data-wrapper > .numbers {
                         flex-basis: 100%;
                     }
+                    .data-wrapper > .numbers > h2 {
+                        font-size: 3rem;
+                    }
+                    
+                    .about-section {
+                    width: 90%;
                 }
 
                 @media only screen and (min-width: 1680px) {
@@ -195,7 +229,10 @@ class CoronaMonitor extends LitElement {
 
     render() {
         return html`
-            <h1>Corona-info</h1>
+            <div class="about-section">
+                <h1>Korona-info</h1>
+                <p>Korona-Info on luotu tarjoamaan ihmisille reaaliaikaista tietoa Korona-viruksen tilasta Suomessa</p>
+            </div>
             <div class="data-wrapper">
                 <div id="infections-by-region">
                     <canvas id="infections-by-region-chart-area"></canvas>
@@ -224,13 +261,13 @@ class CoronaMonitor extends LitElement {
                 </div>
             </div>
             <div class="footer">
-                <p>Corona-info sisältää tietoa COVID-19 tartunnista Suomessa.</p>
-                <p>Corona-info päivittää tietonsa tasatunnein.</p>
+                <p>Korona-info sisältää tietoa COVID-19 tartunnista Suomessa.</p>
+                <p>Korona-info päivittää tietonsa tasatunnein.</p>
                 <p>
                     Datan lähteenä toimii
                     <a href="https://github.com/HS-Datadesk/koronavirus-avoindata">Helsingin sanomien avoin data</a>
                 </p>
-                <a href="https://github.com/Matsuuu/finnish-corona-statistics/tree/master">Github</a>
+                <a href="https://github.com/Matsuuu/finnish-corona-statistics/tree/master">GitHub</a>
                 <a href="https://twitter.com/matsutuss">Twitter</a>
                 <a href="https://www.linkedin.com/in/matias-huhta-b0b159106">LinkedIn</a>
             </div>
