@@ -5,6 +5,7 @@ let colorArray = [
     '#ff9f40aa',
     '#9966ffaa',
     '#4bc0c0aa',
+    '#dbf2f2',
     '#ffcd56',
     '#109618aa',
     '#990099aa',
@@ -41,28 +42,25 @@ export default class ChartDataBuilder {
     static getInfectionByRegionConfig(infectionsByRegion) {
         // Remove empty entries
         let labelsWithCounts = [];
-        for (let region of Object.keys(infectionsByRegion)) {
-            if (infectionsByRegion[region] === 0) {
-                delete infectionsByRegion[region];
+        for (let region of infectionsByRegion) {
+            if (region.count === 0) {
                 continue;
             }
-            labelsWithCounts.push(`${region} ${infectionsByRegion[region]}`);
+            labelsWithCounts.push(`${region.region} ${region.count}`);
         }
         return {
             type: 'doughnut',
             data: {
                 datasets: [
                     {
-                        data: Object.values(infectionsByRegion),
-                        backgroundColor: [...new Array(Object.keys(infectionsByRegion).length)].map(
-                            (_ignore, i) => colorArray[i]
-                        ),
+                        data: infectionsByRegion.map(reg => reg.count),
+                        backgroundColor: infectionsByRegion.map((_ignore, i) => colorArray[i]),
                     },
                 ],
                 labels: labelsWithCounts,
             },
             options: {
-                aspectRatio: window.innerWidth > 720 ? 1 : 0.75,
+                aspectRatio: window.innerWidth > 720 ? 1.5 : 0.75,
                 title: {
                     fontSize: 18,
                     display: true,
@@ -140,7 +138,7 @@ export default class ChartDataBuilder {
                         backgroundColor: colorArray[0],
                     },
                     {
-                        label: 'Kuolontapaukset',
+                        label: 'Kuolemantapaukset',
                         data: Object.values(deathsByDay),
                         backgroundColor: colorArray[1],
                     },

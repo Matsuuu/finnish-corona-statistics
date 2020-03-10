@@ -42,13 +42,13 @@ class CoronaMonitor extends LitElement {
                 }
                 .data-wrapper > div {
                     background: #fff;
-                    flex-basis: 40%;
+                    flex-basis: 42.5%;
                     margin-bottom: 5%;
                     box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14),
                         0px 1px 8px 0px rgba(0, 0, 0, 0.12);
                     padding: 1rem;
                     margin: 1rem;
-                    border-radius: 10px;
+                    border-radius: 5px;
                     display: flex;
                     align-items: center;
                 }
@@ -68,11 +68,37 @@ class CoronaMonitor extends LitElement {
                     font-size: 1.4rem;
                 }
 
+                .data-wrapper > h3 {
+                    width: 100%;
+                    color: #484848;
+                    margin: 1rem 2rem;
+                }
+
+                .footer {
+                    display: flex;
+                    margin-top: 2rem;
+                    flex-direction: column;
+                    color: #484848;
+                    text-align: left;
+                    width: 50%;
+                    margin: 10% auto 1rem;
+                }
+
+                .footer > a,
+                .footer > p > a {
+                    color: inherit;
+                    margin: 0.5rem 0;
+                }
+
+                .footer > p {
+                    margin: 0.5rem 0;
+                }
+
                 @media only screen and (max-width: 780px) {
                     .data-wrapper {
-                    margin: 0 1%;
+                        margin: 0 1%;
                     }
-                
+
                     .data-wrapper > div {
                         flex-basis: 95%;
                         margin-bottom: 5%;
@@ -84,9 +110,17 @@ class CoronaMonitor extends LitElement {
                     .data-wrapper > .numbers > h2 {
                         font-size: 3rem;
                     }
-                    
+
                     .about-section {
-                    width: 90%;
+                        width: 90%;
+                    }
+                    .data-wrapper > h3 {
+                        margin: 1rem;
+                    }
+
+                    .footer {
+                        width: 90%;
+                    }
                 }
 
                 @media only screen and (min-width: 1680px) {
@@ -123,12 +157,15 @@ class CoronaMonitor extends LitElement {
 
     getInfectionsByRegion() {
         let regions = CountryDataService.getRegionPopulations();
-        let infectionsByRegion = {};
+        let infectionsByRegion = [];
         for (let region of Object.keys(regions)) {
-            infectionsByRegion[region] = this.apiData.confirmed.filter(
-                confirmedCase => confirmedCase.healthCareDistrict === region
-            ).length;
+            infectionsByRegion.push({
+                region,
+                count: this.apiData.confirmed.filter(confirmedCase => confirmedCase.healthCareDistrict === region)
+                    .length,
+            });
         }
+        infectionsByRegion.sort((a, b) => b.count - a.count);
         return infectionsByRegion;
     }
 
@@ -234,18 +271,21 @@ class CoronaMonitor extends LitElement {
                 <p>Korona-Info on luotu tarjoamaan ihmisille reaaliaikaista tietoa Korona-viruksen tilasta Suomessa</p>
             </div>
             <div class="data-wrapper">
+                <h3>Tartuntojen määrä</h3>
                 <div id="infections-by-region">
                     <canvas id="infections-by-region-chart-area"></canvas>
                 </div>
                 <div id="infections-by-day">
                     <canvas id="infections-by-day-chart-area"></canvas>
                 </div>
+                <h3>Tartuntojen lähde</h3>
                 <div id="infection-source-countries">
                     <canvas id="infection-source-countries-chart-area"></canvas>
                 </div>
                 <div id="infections-source-country-percentages">
                     <canvas id="infections-source-country-percentages-chart-area"></canvas>
                 </div>
+                <h3>Koronavirus numeroina</h3>
                 <div class="numbers" id="infection-count">
                     <p>Tartuntojen määrä</p>
                     <h2></h2>
@@ -261,8 +301,10 @@ class CoronaMonitor extends LitElement {
                 </div>
             </div>
             <div class="footer">
-                <p>Korona-info sisältää tietoa COVID-19 tartunnista Suomessa.</p>
-                <p>Korona-info päivittää tietonsa tasatunnein.</p>
+                <p>
+                    Korona-info sisältää tietoa COVID-19 tartunnoista Suomessa. Korona-info päivittää tietonsa
+                    tasatunnein.
+                </p>
                 <p>
                     Datan lähteenä toimii
                     <a href="https://github.com/HS-Datadesk/koronavirus-avoindata">Helsingin sanomien avoin data</a>
