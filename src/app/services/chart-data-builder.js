@@ -166,6 +166,9 @@ export default class ChartDataBuilder {
                     xAxes: [
                         {
                             stacked: true,
+                            ticks: {
+                                maxTicksLimit: 10,
+                            },
                         },
                     ],
                     yAxes: [
