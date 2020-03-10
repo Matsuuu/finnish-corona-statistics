@@ -230,7 +230,7 @@ class CoronaMonitor extends LitElement {
                     Datan lähteenä toimii
                     <a href="https://github.com/HS-Datadesk/koronavirus-avoindata">Helsingin sanomien avoin data</a>
                 </p>
-                <a href="https://github.com/Matsuuu/finnish-corona-statistics/tree/master">Github</a>
+                <a href="https://github.com/Matsuuu/finnish-corona-statistics/tree/master">GitHub</a>
                 <a href="https://twitter.com/matsutuss">Twitter</a>
                 <a href="https://www.linkedin.com/in/matias-huhta-b0b159106">LinkedIn</a>
             </div>
