@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 let colorArray = [
     '#3366cc',
     '#dc3912',
@@ -110,15 +112,29 @@ export default class ChartDataBuilder {
     }
 
     static getInfectionsByDayChart(infectionByDay, deathsByDay) {
-        let labels = [...new Set([...Object.keys(infectionByDay), ...Object.keys(deathsByDay)])];
+        let dates = [...new Set([...Object.keys(infectionByDay), ...Object.keys(deathsByDay)])];
+        let firstDay = dates[0];
+        let lastDay = dates[dates.length - 1];
+        let lastAddedDate = firstDay - 86400; // Reduce on day
+        let labels = [];
+        while (lastAddedDate <= lastDay) {
+            lastAddedDate += 86400;
+            labels.push(lastAddedDate);
+        }
+        let infectionsByDayData = [];
+        let deathsByDayData = [];
+        for (let label of labels) {
+            infectionsByDayData.push(infectionByDay[label] ? infectionByDay[label] : 0);
+            deathsByDayData.push(deathsByDay[label] ? deathsByDay[label] : 0);
+        }
         return {
             type: 'bar',
             data: {
-                labels: labels,
+                labels: labels.map(label => dayjs(label * 1000).format('DD-MM-YYYY')),
                 datasets: [
                     {
                         label: 'Sairastumiset',
-                        data: Object.values(infectionByDay),
+                        data: infectionsByDayData,
                         backgroundColor: colorArray[0],
                     },
                     {
@@ -163,7 +179,6 @@ export default class ChartDataBuilder {
     }
 
     static getInfectionsSourcePercentage(infectionsBySourceCountry) {
-        console.log(infectionsBySourceCountry);
         let finnishSources = 0;
         let foreignSources = 0;
         for (let source of Object.keys(infectionsBySourceCountry)) {
@@ -173,7 +188,6 @@ export default class ChartDataBuilder {
                 foreignSources += infectionsBySourceCountry[source];
             }
         }
-        console.log({ finnishSources, foreignSources });
         return {
             type: 'doughnut',
             data: {

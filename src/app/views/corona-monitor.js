@@ -115,7 +115,11 @@ class CoronaMonitor extends LitElement {
         let infectionsByDay = {};
         let infectionDates = new Set(this.apiData.confirmed.map(confirmedCase => confirmedCase.date));
         for (let infectionDate of infectionDates) {
-            let formattedDate = dayjs(infectionDate).format('DD-MM-YYYY');
+            let formattedDate = dayjs(infectionDate)
+                .set('hour', 0)
+                .set('minute', 0)
+                .set('second', 0)
+                .unix();
             if (!infectionsByDay[formattedDate]) {
                 infectionsByDay[formattedDate] = 0;
             }
@@ -130,7 +134,11 @@ class CoronaMonitor extends LitElement {
         let infectionsByDay = {};
         let infectionDates = new Set(this.apiData.deaths.map(deathCase => deathCase.date));
         for (let infectionDate of infectionDates) {
-            let formattedDate = dayjs(infectionDate).format('DD-MM-YYYY');
+            let formattedDate = dayjs(infectionDate)
+                .set('hour', 0)
+                .set('minute', 0)
+                .set('second', 0)
+                .unix();
             if (!infectionsByDay[formattedDate]) {
                 infectionsByDay[formattedDate] = 0;
             }
@@ -170,7 +178,6 @@ class CoronaMonitor extends LitElement {
         let infectionCountDiv = this.shadowRoot.querySelector('#infection-count');
         let infectionPercentageDiv = this.shadowRoot.querySelector('#infection-percentage');
         let mortalityRateDiv = this.shadowRoot.querySelector('#mortality-rate');
-        console.log(CountryDataService.getFinlandsPopulation());
 
         infectionCountDiv.querySelector('h2').innerText = mortalityData.confirmedCount;
         infectionPercentageDiv.querySelector('h2').innerText = `${(
