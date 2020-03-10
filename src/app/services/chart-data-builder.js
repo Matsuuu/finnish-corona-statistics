@@ -93,6 +93,7 @@ export default class ChartDataBuilder {
                 labels: labelsWithCounts,
             },
             options: {
+                aspectRatio: window.innerWidth > 720 ? 2 : 0.75,
                 title: {
                     fontSize: 18,
                     display: true,
@@ -128,6 +129,7 @@ export default class ChartDataBuilder {
                 ],
             },
             options: {
+                aspectRatio: window.innerWidth > 720 ? 2 : 0.75,
                 title: {
                     display: true,
                     text: 'Sairastumiset ja kuolontapaukset päivittäin',
@@ -184,6 +186,7 @@ export default class ChartDataBuilder {
                 labels: ['Suomesta lähtöisin olevat tartunnat', 'Ulkomailta lähtöisin olevat tartunnat'],
             },
             options: {
+                aspectRatio: window.innerWidth > 720 ? 2 : 0.75,
                 title: {
                     fontSize: 18,
                     display: true,
