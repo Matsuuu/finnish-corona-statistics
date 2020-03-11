@@ -46,7 +46,7 @@ export default class ChartDataBuilder {
             if (region.count === 0) {
                 continue;
             }
-            labelsWithCounts.push(`${region.region} ${region.count}`);
+            labelsWithCounts.push(`${region.region} ${region.count} kpl`);
         }
         return {
             type: 'doughnut',
@@ -79,7 +79,7 @@ export default class ChartDataBuilder {
     static getInfectionSourceCountryChart(sourceCountries) {
         let labelsWithCounts = [];
         for (let country of Object.keys(sourceCountries)) {
-            labelsWithCounts.push(`${country} ${sourceCountries[country]}`);
+            labelsWithCounts.push(`${country !== 'null' ? country : 'Ei tiedossa'} ${sourceCountries[country]} kpl`);
         }
         return {
             type: 'doughnut',
@@ -219,7 +219,7 @@ export default class ChartDataBuilder {
         };
     }
 
-    static getInfectionsByDayChartCumulative(infectionsByDay) {
+    static getInfectionsByDayChartCumulative(infectionsByDay, recoveriesByDay) {
         let dates = [...new Set([...Object.keys(infectionsByDay)])];
         let firstDay = dates[0];
         let lastDay = Date.now() / 1000 - 86400;
@@ -230,10 +230,20 @@ export default class ChartDataBuilder {
             labels.push(lastAddedDate);
         }
         let infectionsByDayData = [];
-        let total = 0;
+        let recoveriesByDayData = [];
+
+        let totalInfected = 0;
+        let totalRecovered = 0;
         for (let label of labels) {
-            total += infectionsByDay[label] ? infectionsByDay[label] : 0;
-            infectionsByDayData.push(total);
+            totalInfected += infectionsByDay[label] ? infectionsByDay[label] : 0;
+            totalRecovered += recoveriesByDay[label] ? recoveriesByDay[label] : 0;
+
+            let currentInfectedCount = totalInfected - totalRecovered;
+            if (currentInfectedCount < 0) {
+                currentInfectedCount = 0;
+            }
+            infectionsByDayData.push(currentInfectedCount);
+            recoveriesByDayData.push(totalRecovered);
         }
         return {
             type: 'line',
@@ -246,14 +256,20 @@ export default class ChartDataBuilder {
                         backgroundColor: colorArray[0],
                         fill: 'start',
                     },
+                    {
+                        label: 'Parantuneiden määrä (Kumulatiivinen)',
+                        data: recoveriesByDayData,
+                        backgroundColor: colorArray[25],
+                        fill: '-1',
+                    },
                 ],
             },
             options: {
                 aspectRatio: window.innerWidth > 720 ? 1.75 : 0.75,
                 title: {
                     display: true,
-                    text: 'Sairastuneiden määrä (Kumulatiivinen)',
-                    fontSize: 18,
+                    text: ['Sairastuneiden määrä (Kumulatiivinen)', 'Parantuneet vähennetään sairastuneista'],
+                    fontSize: 16,
                 },
                 legend: {
                     position: 'bottom',
@@ -265,11 +281,16 @@ export default class ChartDataBuilder {
                     mode: 'index',
                     intersect: false,
                 },
+                elements: {
+                    point: {
+                        radius: 0,
+                    },
+                },
                 responsive: true,
                 scales: {
                     xAxes: [
                         {
-                            stacked: true,
+                            stacked: false,
                             ticks: {
                                 maxTicksLimit: 10,
                             },
@@ -278,6 +299,10 @@ export default class ChartDataBuilder {
                     yAxes: [
                         {
                             stacked: true,
+                            ticks: {
+                                suggestedMin: 0,
+                                suggestedMax: totalInfected * 1.2,
+                            },
                         },
                     ],
                 },

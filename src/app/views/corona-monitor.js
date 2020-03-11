@@ -54,7 +54,7 @@ class CoronaMonitor extends LitElement {
                 }
 
                 .data-wrapper > .numbers {
-                    flex-basis: 22.5%;
+                    flex-basis: 20%;
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -63,9 +63,13 @@ class CoronaMonitor extends LitElement {
 
                 .data-wrapper > .numbers > h2 {
                     font-size: 3rem;
+                    width: max-content;
+                    color: #484848;
                 }
                 .data-wrapper > .numbers > p {
                     font-size: 1.4rem;
+                    width: max-content;
+                    color: #484848;
                 }
 
                 .data-wrapper > h3 {
@@ -143,14 +147,16 @@ class CoronaMonitor extends LitElement {
 
     async getApiData() {
         this.apiData = await fetch(this.apiUrl).then(res => res.json());
+        console.log(this.apiData);
         let infectionsByRegion = this.getInfectionsByRegion();
         let infectionsBySourceCountry = this.getInfectionsBySourceCountry();
         let infectionsByDay = this.getInfectionsByDay();
+        let recoveredByDay = this.getRecoveriesByDay();
         let deathsByDay = this.getDeathsByDay();
         let mortalityData = this.getMortalityRate();
         this.createRegionalInfectionChart(infectionsByRegion);
         this.createSourceCountryChart(infectionsBySourceCountry);
-        this.createInfectionsCumulativeChart(infectionsByDay);
+        this.createInfectionsCumulativeChart(infectionsByDay, recoveredByDay);
         this.createInfectionsByDayChart(infectionsByDay, deathsByDay);
         this.createMortalityRateNumber(mortalityData);
         this.createInfectionsSourcePercentageChart(infectionsBySourceCountry);
@@ -202,30 +208,50 @@ class CoronaMonitor extends LitElement {
         return infectionsByDay;
     }
 
+    getRecoveriesByDay() {
+        let recoveriesByDay = {};
+        let recoveryDates = new Set(this.apiData.recovered.map(recoveryCase => recoveryCase.date));
+        for (let recoveryDate of recoveryDates) {
+            let formattedDate = dayjs(recoveryDate)
+                .set('hour', 0)
+                .set('minute', 0)
+                .set('second', 0)
+                .unix();
+            if (!recoveriesByDay[formattedDate]) {
+                recoveriesByDay[formattedDate] = 0;
+            }
+            recoveriesByDay[formattedDate] += this.apiData.recovered.filter(
+                recoveryCase => recoveryCase.date === recoveryDate
+            ).length;
+        }
+        return recoveriesByDay;
+    }
+
     getDeathsByDay() {
-        let infectionsByDay = {};
-        let infectionDates = new Set(this.apiData.deaths.map(deathCase => deathCase.date));
-        for (let infectionDate of infectionDates) {
+        let deathsByDay = {};
+        let deathDates = new Set(this.apiData.deaths.map(deathCase => deathCase.date));
+        for (let infectionDate of deathDates) {
             let formattedDate = dayjs(infectionDate)
                 .set('hour', 0)
                 .set('minute', 0)
                 .set('second', 0)
                 .unix();
-            if (!infectionsByDay[formattedDate]) {
-                infectionsByDay[formattedDate] = 0;
+            if (!deathsByDay[formattedDate]) {
+                deathsByDay[formattedDate] = 0;
             }
-            infectionsByDay[formattedDate] += this.apiData.deaths.filter(
+            deathsByDay[formattedDate] += this.apiData.deaths.filter(
                 deathCase => deathCase.date === infectionDate
             ).length;
         }
-        return infectionsByDay;
+        return deathsByDay;
     }
 
     getMortalityRate() {
         let confirmedCount = this.apiData.confirmed.length;
         let deathCount = this.apiData.deaths.length;
         let mortalityRate = confirmedCount > 0 && deathCount == 0 ? 0 : confirmedCount / deathCount;
-        return { confirmedCount, deathCount, mortalityRate };
+        let recoveredCount = this.apiData.recovered.length;
+        return { confirmedCount, deathCount, mortalityRate, recoveredCount };
     }
 
     createRegionalInfectionChart(infectionsByRegion) {
@@ -246,8 +272,8 @@ class CoronaMonitor extends LitElement {
         new Chart(ctx, chartConfig);
     }
 
-    createInfectionsCumulativeChart(infectionsByDay) {
-        let chartConfig = ChartDataBuilder.getInfectionsByDayChartCumulative(infectionsByDay);
+    createInfectionsCumulativeChart(infectionsByDay, recoveredByDay) {
+        let chartConfig = ChartDataBuilder.getInfectionsByDayChartCumulative(infectionsByDay, recoveredByDay);
         let ctx = this.shadowRoot.querySelector('#infections-total-cumulative-chart-area').getContext('2d');
         new Chart(ctx, chartConfig);
     }
@@ -256,8 +282,10 @@ class CoronaMonitor extends LitElement {
         let infectionCountDiv = this.shadowRoot.querySelector('#infection-count');
         let infectionPercentageDiv = this.shadowRoot.querySelector('#infection-percentage');
         let mortalityRateDiv = this.shadowRoot.querySelector('#mortality-rate');
+        let recoveredCountDiv = this.shadowRoot.querySelector('#recovered-count');
 
         infectionCountDiv.querySelector('h2').innerText = mortalityData.confirmedCount;
+        recoveredCountDiv.querySelector('h2').innerText = mortalityData.recoveredCount;
         infectionPercentageDiv.querySelector('h2').innerText = `${(
             (mortalityData.confirmedCount / CountryDataService.getFinlandsPopulation()) *
             100
@@ -283,13 +311,16 @@ class CoronaMonitor extends LitElement {
                     <p>Tartuntojen määrä</p>
                     <h2></h2>
                 </div>
+                <div class="numbers" id="recovered-count">
+                    <p>Parantuneiden määrä</p>
+                    <h2></h2>
+                </div>
                 <div class="numbers" id="infection-percentage">
                     <p>Tartunnan saaneiden %</p>
                     <h2></h2>
                 </div>
-
                 <div class="numbers" id="mortality-rate">
-                    <p>Kuolontapausprosentti</p>
+                    <p>Sairastuneista kuolleita %</p>
                     <h2></h2>
                 </div>
                 <h3>Tartuntojen määrä</h3>

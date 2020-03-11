@@ -3,11 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="1a0cbf1f-a550-4ed4-bc5e-9b56b5d4d906" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corona-data.json" beforeDir="false" afterPath="$PROJECT_DIR$/corona-data.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/services/chart-data-builder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/chart-data-builder.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/views/corona-monitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/corona-monitor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/update" beforeDir="false" afterPath="$PROJECT_DIR$/update" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +62,8 @@
       <updated>1583788808649</updated>
       <workItem from="1583788810654" duration="15136000" />
       <workItem from="1583832881259" duration="8327000" />
-      <workItem from="1583921529375" duration="770000" />
+      <workItem from="1583921529375" duration="974000" />
+      <workItem from="1583922881295" duration="2363000" />
     </task>
     <servers />
   </component>
@@ -79,11 +79,11 @@
       <screen x="0" y="19" width="1920" height="1061" />
     </state>
     <state x="451" y="135" key="SettingsEditor/0.19.1920.1061@0.19.1920.1061" timestamp="1583790749948" />
-    <state x="1202" y="510" width="1434" height="1124" key="find.popup" timestamp="1583922226440">
+    <state x="1202" y="510" width="1603" height="1266" key="find.popup" timestamp="1583922888170">
       <screen x="0" y="38" width="3840" height="2122" />
     </state>
     <state x="601" y="255" width="717" height="562" key="find.popup/0.19.1920.1061@0.19.1920.1061" timestamp="1583839127690" />
-    <state x="1202" y="510" width="1434" height="1124" key="find.popup/0.38.3840.2122@0.38.3840.2122" timestamp="1583922226440" />
+    <state x="1202" y="510" width="1603" height="1266" key="find.popup/0.38.3840.2122@0.38.3840.2122" timestamp="1583922888170" />
     <state x="622" y="239" key="run.anything.popup" timestamp="1583798815706">
       <screen x="0" y="19" width="1920" height="1061" />
     </state>
