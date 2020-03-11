@@ -278,6 +278,20 @@ class CoronaMonitor extends LitElement {
                 <p>Korona-Info on luotu tarjoamaan ihmisille reaaliaikaista tietoa Korona-viruksen tilasta Suomessa</p>
             </div>
             <div class="data-wrapper">
+                <h3>Koronavirus numeroina</h3>
+                <div class="numbers" id="infection-count">
+                    <p>Tartuntojen määrä</p>
+                    <h2></h2>
+                </div>
+                <div class="numbers" id="infection-percentage">
+                    <p>Tartunnan saaneiden %</p>
+                    <h2></h2>
+                </div>
+
+                <div class="numbers" id="mortality-rate">
+                    <p>Kuolontapauksprosentti</p>
+                    <h2></h2>
+                </div>
                 <h3>Tartuntojen määrä</h3>
                 <div id="infections-by-region">
                     <canvas id="infections-by-region-chart-area"></canvas>
@@ -295,20 +309,7 @@ class CoronaMonitor extends LitElement {
                 <div id="infections-source-country-percentages">
                     <canvas id="infections-source-country-percentages-chart-area"></canvas>
                 </div>
-                <h3>Koronavirus numeroina</h3>
-                <div class="numbers" id="infection-count">
-                    <p>Tartuntojen määrä</p>
-                    <h2></h2>
-                </div>
-                <div class="numbers" id="infection-percentage">
-                    <p>Tartunnan saaneiden %</p>
-                    <h2></h2>
-                </div>
-
-                <div class="numbers" id="mortality-rate">
-                    <p>Kuolleisuusprosentti</p>
-                    <h2></h2>
-                </div>
+                
             </div>
             <div class="footer">
                 <p>
