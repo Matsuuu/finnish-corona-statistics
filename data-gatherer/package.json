@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dayjs": "^1.8.22",
     "fs": "0.0.1-security",
     "node-fetch": "^2.6.0"
   }
