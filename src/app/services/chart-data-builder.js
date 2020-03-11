@@ -220,7 +220,6 @@ export default class ChartDataBuilder {
     }
 
     static getInfectionsByDayChartCumulative(infectionsByDay) {
-        console.log(infectionsByDay);
         let dates = [...new Set([...Object.keys(infectionsByDay)])];
         let firstDay = dates[0];
         let lastDay = Date.now() / 1000 - 86400;

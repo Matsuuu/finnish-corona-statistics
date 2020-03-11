@@ -134,7 +134,7 @@ class CoronaMonitor extends LitElement {
 
     constructor() {
         super();
-        this.apiUrl = 'https://w3qa5ydb4l.execute-api.eu-west-1.amazonaws.com/prod/finnishCoronaData';
+        this.apiUrl = '/corona-data.json';
     }
 
     firstUpdated(_changedProperties) {
@@ -142,7 +142,7 @@ class CoronaMonitor extends LitElement {
     }
 
     async getApiData() {
-        this.apiData = coronaData;
+        this.apiData = await fetch(this.apiUrl).then(res => res.json());
         let infectionsByRegion = this.getInfectionsByRegion();
         let infectionsBySourceCountry = this.getInfectionsBySourceCountry();
         let infectionsByDay = this.getInfectionsByDay();
@@ -309,7 +309,6 @@ class CoronaMonitor extends LitElement {
                 <div id="infections-source-country-percentages">
                     <canvas id="infections-source-country-percentages-chart-area"></canvas>
                 </div>
-                
             </div>
             <div class="footer">
                 <p>

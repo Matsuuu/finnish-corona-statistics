@@ -38,7 +38,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin({
             verbose: true,
-            cleanAfterEveryBuildPatterns: ['!*.png'],
+            cleanAfterEveryBuildPatterns: ['!*.png', '!*.json'],
         }),
         new HtmlWebPackPlugin({
             template: './src/index.html',
@@ -53,6 +53,11 @@ module.exports = {
             {
                 context: './src/assets/images',
                 from: '*',
+                to: '.',
+            },
+            {
+                context: '.',
+                from: 'corona-data.json',
                 to: '.',
             },
         ]),
