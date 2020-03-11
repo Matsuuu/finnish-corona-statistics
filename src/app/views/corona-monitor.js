@@ -289,7 +289,7 @@ class CoronaMonitor extends LitElement {
                 </div>
 
                 <div class="numbers" id="mortality-rate">
-                    <p>Kuolontapauksprosentti</p>
+                    <p>Kuolontapausprosentti</p>
                     <h2></h2>
                 </div>
                 <h3>Tartuntojen määrä</h3>
