@@ -59,6 +59,7 @@ class CoronaMonitor extends LitElement {
         this.createInfectionsByDayChart(infectionsByDay, deathsByDay);
         this.createMortalityRateNumber(mortalityData);
         this.createInfectionsSourcePercentageChart(infectionsBySourceCountry);
+        this.createGlobalNumbers();
     }
 
     createRegionalInfectionChart(infectionsByRegion) {
@@ -106,6 +107,31 @@ class CoronaMonitor extends LitElement {
         new Chart(ctx, chartConfig);
     }
 
+    createGlobalNumbers() {
+        let globalConfirmed = 0;
+        let globalRecovered = 0;
+        let globalDeaths = 0;
+        for (let countryKey of Object.keys(this.globalApiData)) {
+            let country = this.globalApiData[countryKey];
+            globalConfirmed += Number(country.totalConfirmed);
+            globalRecovered += Number(country.totalRecovered);
+            globalDeaths += Number(country.totalDeaths);
+        }
+        console.log({ globalConfirmed, globalRecovered, globalDeaths });
+
+        let globalConfirmedDiv = this.shadowRoot.querySelector('#total-global-infections');
+        let globalRecoveredDiv = this.shadowRoot.querySelector('#total-global-recovered');
+        let globalDeathsDiv = this.shadowRoot.querySelector('#total-global-deaths');
+        let globalActiveCasesDiv = this.shadowRoot.querySelector('#total-global-active');
+        let globalClosedCasesDiv = this.shadowRoot.querySelector('#total-global-closed');
+
+        globalConfirmedDiv.querySelector('h2').innerText = globalConfirmed;
+        globalRecoveredDiv.querySelector('h2').innerText = globalRecovered;
+        globalDeathsDiv.querySelector('h2').innerText = globalDeaths;
+        globalActiveCasesDiv.querySelector('h2').innerText = globalConfirmed - globalRecovered - globalDeaths;
+        globalClosedCasesDiv.querySelector('h2').innerText = globalRecovered + globalDeaths;
+    }
+
     render() {
         return html`
             <div class="about-section">
@@ -116,15 +142,15 @@ class CoronaMonitor extends LitElement {
                 <h3>Koronavirus numeroina</h3>
                 <div class="numbers" id="infection-count">
                     <p>Tartuntojen määrä</p>
-                    <h2></h2>
+                    <h2 class="confirmed-numbers"></h2>
                 </div>
                 <div class="numbers" id="recovered-count">
                     <p>Parantuneiden määrä</p>
-                    <h2></h2>
+                    <h2 class="recovered-numbers"></h2>
                 </div>
                 <div class="numbers" id="infection-percentage">
                     <p>Tartunnan saaneiden %</p>
-                    <h2></h2>
+                    <h2 class="deaths-numbers"></h2>
                 </div>
                 <div class="numbers" id="mortality-rate">
                     <p>Sairastuneista kuolleita %</p>
@@ -148,6 +174,28 @@ class CoronaMonitor extends LitElement {
                     <canvas id="infections-source-country-percentages-chart-area"></canvas>
                 </div>
                 <h3>Globaaleja tilastoja</h3>
+
+                <div class="numbers global-numbers" id="total-global-infections">
+                    <p>Tartuntojen määrä (globaali)</p>
+                    <h2 class="confirmed-numbers"></h2>
+                </div>
+                <div class="numbers global-numbers" id="total-global-recovered">
+                    <p>Parantuneiden määrä (globaali)</p>
+                    <h2 class="recovered-numbers"></h2>
+                </div>
+                <div class="numbers global-numbers" id="total-global-deaths">
+                    <p>Sairastuneista kuolleita (globaali)</p>
+                    <h2 class="deaths-numbers"></h2>
+                </div>
+                <div class="numbers global-numbers" id="total-global-active">
+                    <p>Aktiivisia tapauksia (globaali)</p>
+                    <h2></h2>
+                </div>
+                <div class="numbers global-numbers" id="total-global-closed">
+                    <p>Suljetut tapaukset (globaali)</p>
+                    <h2></h2>
+                </div>
+
                 <div class="country-infection-numbers-list">
                     <p>Data ei välttämättä ole samassa tahdissa Helsingin Sanomien datan kanssa</p>
                     <p>
@@ -167,7 +215,9 @@ class CoronaMonitor extends LitElement {
                                               ${this.mortalityData.confirmedCount <
                                               this.globalApiData[country].totalConfirmed
                                                   ? html`
-                                                        <i class="material-icons green">keyboard_arrow_up</i>
+                                                        <i class="material-icons recovered-numbers"
+                                                            >keyboard_arrow_up</i
+                                                        >
                                                     `
                                                   : html`
                                                         ${this.mortalityData.confirmedCount ===
@@ -176,7 +226,9 @@ class CoronaMonitor extends LitElement {
                                                                   <span class="gray">=</span>
                                                               `
                                                             : html`
-                                                                  <i class="material-icons red">keyboard_arrow_down</i>
+                                                                  <i class="material-icons confirmed-numbers"
+                                                                      >keyboard_arrow_down</i
+                                                                  >
                                                               `}
                                                     `}
                                           </p>
@@ -185,7 +237,9 @@ class CoronaMonitor extends LitElement {
                                               ${this.mortalityData.recoveredCount <
                                               this.globalApiData[country].totalRecovered
                                                   ? html`
-                                                        <i class="material-icons green">keyboard_arrow_up</i>
+                                                        <i class="material-icons recovered-numbers"
+                                                            >keyboard_arrow_up</i
+                                                        >
                                                     `
                                                   : html`
                                                         ${this.mortalityData.recoveredCount ===
@@ -194,7 +248,9 @@ class CoronaMonitor extends LitElement {
                                                                   <span class="gray">=</span>
                                                               `
                                                             : html`
-                                                                  <i class="material-icons red">keyboard_arrow_down</i>
+                                                                  <i class="material-icons confirmed-numbers"
+                                                                      >keyboard_arrow_down</i
+                                                                  >
                                                               `}
                                                     `}
                                           </p>
@@ -202,7 +258,9 @@ class CoronaMonitor extends LitElement {
                                               Kuolleet: ${this.globalApiData[country].totalDeaths}
                                               ${this.mortalityData.deathCount < this.globalApiData[country].totalDeaths
                                                   ? html`
-                                                        <i class="material-icons green">keyboard_arrow_up</i>
+                                                        <i class="material-icons recovered-numbers"
+                                                            >keyboard_arrow_up</i
+                                                        >
                                                     `
                                                   : html`
                                                         ${this.mortalityData.deathCount ===
@@ -211,7 +269,9 @@ class CoronaMonitor extends LitElement {
                                                                   <span class="gray">=</span>
                                                               `
                                                             : html`
-                                                                  <i class="material-icons red">keyboard_arrow_down</i>
+                                                                  <i class="material-icons confirmed-numbers"
+                                                                      >keyboard_arrow_down</i
+                                                                  >
                                                               `}
                                                     `}
                                           </p>
