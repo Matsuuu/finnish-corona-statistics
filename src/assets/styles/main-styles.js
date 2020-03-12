@@ -213,6 +213,20 @@ const styles = css`
             margin: 1rem;
         }
 
+        .data-wrapper > .country-infection-numbers-list {
+            padding: 1rem;
+            flex-basis: 85%;
+        }
+
+        .country-infection-number-row {
+            flex-direction: column;
+            margin-bottom: 2rem;
+        }
+
+        .country-infection-statistics {
+            width: 100%;
+        }
+
         .footer {
             width: 90%;
         }
