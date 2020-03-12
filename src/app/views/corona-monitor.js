@@ -4,141 +4,34 @@ import dayjs from 'dayjs';
 import ChartDataBuilder from '../services/chart-data-builder';
 import Chart from 'chart.js';
 import coronaData from 'corona-data';
+import ChartDataParser from '../services/chart-data-parser';
+import styles from 'assets/styles/main-styles.js';
 
 class CoronaMonitor extends LitElement {
     static get properties() {
         return {
             apiUrl: { type: String },
+            globalApiUrl: { type: String },
             apiData: { type: Object },
+            globalApiData: { type: Object },
+            mortalityData: { type: Object },
+
+            showAllCountriesInList: { type: Boolean },
         };
     }
 
     static get styles() {
-        return [
-            css`
-                :host {
-                    font-family: 'Roboto', sans-serif;
-                    background: #fafafa;
-                    display: block;
-                }
-                .about-section {
-                    width: 50%;
-                    display: flex;
-                    margin: 0 auto;
-                    flex-direction: column;
-                    color: #484848;
-                }
-
-                .about-section > h1 {
-                    margin: 0.5rem 0;
-                }
-
-                .data-wrapper {
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    margin: 0 10%;
-                    justify-content: center;
-                }
-                .data-wrapper > div {
-                    background: #fff;
-                    flex-basis: 42.5%;
-                    margin-bottom: 5%;
-                    box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14),
-                        0px 1px 8px 0px rgba(0, 0, 0, 0.12);
-                    padding: 1rem;
-                    margin: 1rem;
-                    border-radius: 5px;
-                    display: flex;
-                    align-items: center;
-                }
-
-                .data-wrapper > .numbers {
-                    flex-basis: 20%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    flex-direction: column;
-                }
-
-                .data-wrapper > .numbers > h2 {
-                    font-size: 3rem;
-                    width: max-content;
-                    color: #484848;
-                }
-                .data-wrapper > .numbers > p {
-                    font-size: 1.4rem;
-                    width: max-content;
-                    color: #484848;
-                }
-
-                .data-wrapper > h3 {
-                    width: 100%;
-                    color: #484848;
-                    margin: 1rem 2rem;
-                }
-
-                .footer {
-                    display: flex;
-                    margin-top: 2rem;
-                    flex-direction: column;
-                    color: #484848;
-                    text-align: left;
-                    width: 50%;
-                    margin: 10% auto 1rem;
-                }
-
-                .footer > a,
-                .footer > p > a {
-                    color: inherit;
-                    margin: 0.5rem 0;
-                }
-
-                .footer > p {
-                    margin: 0.5rem 0;
-                }
-
-                @media only screen and (max-width: 780px) {
-                    .data-wrapper {
-                        margin: 0 1%;
-                    }
-
-                    .data-wrapper > div {
-                        flex-basis: 95%;
-                        margin-bottom: 5%;
-                    }
-
-                    .data-wrapper > .numbers {
-                        flex-basis: 100%;
-                    }
-                    .data-wrapper > .numbers > h2 {
-                        font-size: 3rem;
-                    }
-
-                    .about-section {
-                        width: 90%;
-                    }
-                    .data-wrapper > h3 {
-                        margin: 1rem;
-                    }
-
-                    .footer {
-                        width: 90%;
-                    }
-                }
-
-                @media only screen and (min-width: 1680px) {
-                    .data-wrapper {
-                        margin: 0 10%;
-                    }
-                }
-            `,
-        ];
+        return [styles];
     }
 
     constructor() {
         super();
         this.apiUrl = '/corona-data.json';
+        this.globalApiUrl = '/global-corona-data.json';
+        this.apiData = null;
+        this.globalApiData = null;
+        this.showAllCountriesInList = false;
+        this.finlandInfectedCount = 0;
     }
 
     firstUpdated(_changedProperties) {
@@ -147,111 +40,25 @@ class CoronaMonitor extends LitElement {
 
     async getApiData() {
         this.apiData = await fetch(this.apiUrl).then(res => res.json());
-        console.log(this.apiData);
-        let infectionsByRegion = this.getInfectionsByRegion();
-        let infectionsBySourceCountry = this.getInfectionsBySourceCountry();
-        let infectionsByDay = this.getInfectionsByDay();
-        let recoveredByDay = this.getRecoveriesByDay();
-        let deathsByDay = this.getDeathsByDay();
-        let mortalityData = this.getMortalityRate();
+        this.globalApiData = await fetch(this.globalApiUrl).then(res => res.json());
+        console.log(this.globalApiData);
+        this.renderElements();
+    }
+
+    renderElements() {
+        let infectionsByRegion = ChartDataParser.getInfectionsByRegion(this.apiData);
+        let infectionsBySourceCountry = ChartDataParser.getInfectionsBySourceCountry(this.apiData);
+        let infectionsByDay = ChartDataParser.getInfectionsByDay(this.apiData);
+        let recoveredByDay = ChartDataParser.getRecoveriesByDay(this.apiData);
+        let deathsByDay = ChartDataParser.getDeathsByDay(this.apiData);
+        let mortalityData = ChartDataParser.getMortalityRate(this.apiData);
+        this.mortalityData = mortalityData;
         this.createRegionalInfectionChart(infectionsByRegion);
         this.createSourceCountryChart(infectionsBySourceCountry);
         this.createInfectionsCumulativeChart(infectionsByDay, recoveredByDay);
         this.createInfectionsByDayChart(infectionsByDay, deathsByDay);
         this.createMortalityRateNumber(mortalityData);
         this.createInfectionsSourcePercentageChart(infectionsBySourceCountry);
-    }
-
-    getInfectionsByRegion() {
-        let regions = CountryDataService.getRegionPopulations();
-        let infectionsByRegion = [];
-        for (let region of Object.keys(regions)) {
-            infectionsByRegion.push({
-                region,
-                count: this.apiData.confirmed.filter(confirmedCase => confirmedCase.healthCareDistrict === region)
-                    .length,
-            });
-        }
-        infectionsByRegion.sort((a, b) => b.count - a.count);
-        return infectionsByRegion;
-    }
-
-    getInfectionsBySourceCountry() {
-        let infectionsBySourceCountry = {};
-        let infectionCountries = new Set(
-            this.apiData.confirmed.map(confirmedCase => confirmedCase.infectionSourceCountry)
-        );
-        for (let infectionCountry of infectionCountries) {
-            infectionsBySourceCountry[infectionCountry] = this.apiData.confirmed.filter(
-                confirmedCase => confirmedCase.infectionSourceCountry === infectionCountry
-            ).length;
-        }
-        return infectionsBySourceCountry;
-    }
-
-    getInfectionsByDay() {
-        let infectionsByDay = {};
-        let infectionDates = new Set(this.apiData.confirmed.map(confirmedCase => confirmedCase.date));
-        for (let infectionDate of infectionDates) {
-            let formattedDate = dayjs(infectionDate)
-                .set('hour', 0)
-                .set('minute', 0)
-                .set('second', 0)
-                .unix();
-            if (!infectionsByDay[formattedDate]) {
-                infectionsByDay[formattedDate] = 0;
-            }
-            infectionsByDay[formattedDate] += this.apiData.confirmed.filter(
-                confirmedCase => confirmedCase.date === infectionDate
-            ).length;
-        }
-        return infectionsByDay;
-    }
-
-    getRecoveriesByDay() {
-        let recoveriesByDay = {};
-        let recoveryDates = new Set(this.apiData.recovered.map(recoveryCase => recoveryCase.date));
-        for (let recoveryDate of recoveryDates) {
-            let formattedDate = dayjs(recoveryDate)
-                .set('hour', 0)
-                .set('minute', 0)
-                .set('second', 0)
-                .unix();
-            if (!recoveriesByDay[formattedDate]) {
-                recoveriesByDay[formattedDate] = 0;
-            }
-            recoveriesByDay[formattedDate] += this.apiData.recovered.filter(
-                recoveryCase => recoveryCase.date === recoveryDate
-            ).length;
-        }
-        return recoveriesByDay;
-    }
-
-    getDeathsByDay() {
-        let deathsByDay = {};
-        let deathDates = new Set(this.apiData.deaths.map(deathCase => deathCase.date));
-        for (let infectionDate of deathDates) {
-            let formattedDate = dayjs(infectionDate)
-                .set('hour', 0)
-                .set('minute', 0)
-                .set('second', 0)
-                .unix();
-            if (!deathsByDay[formattedDate]) {
-                deathsByDay[formattedDate] = 0;
-            }
-            deathsByDay[formattedDate] += this.apiData.deaths.filter(
-                deathCase => deathCase.date === infectionDate
-            ).length;
-        }
-        return deathsByDay;
-    }
-
-    getMortalityRate() {
-        let confirmedCount = this.apiData.confirmed.length;
-        let deathCount = this.apiData.deaths.length;
-        let mortalityRate = confirmedCount > 0 && deathCount == 0 ? 0 : confirmedCount / deathCount;
-        let recoveredCount = this.apiData.recovered.length;
-        return { confirmedCount, deathCount, mortalityRate, recoveredCount };
     }
 
     createRegionalInfectionChart(infectionsByRegion) {
@@ -289,8 +96,8 @@ class CoronaMonitor extends LitElement {
         infectionPercentageDiv.querySelector('h2').innerText = `${(
             (mortalityData.confirmedCount / CountryDataService.getFinlandsPopulation()) *
             100
-        ).toFixed(5)} %`;
-        mortalityRateDiv.querySelector('h2').innerText = mortalityData.mortalityRate + '%';
+        ).toFixed(5)}%`;
+        mortalityRateDiv.querySelector('h2').innerText = `${mortalityData.mortalityRate}%`;
     }
 
     createInfectionsSourcePercentageChart(infectionsBySourceCountry) {
@@ -340,6 +147,90 @@ class CoronaMonitor extends LitElement {
                 <div id="infections-source-country-percentages">
                     <canvas id="infections-source-country-percentages-chart-area"></canvas>
                 </div>
+                <h3>Globaaleja tilastoja</h3>
+                <div class="country-infection-numbers-list">
+                    <p>Data ei välttämättä ole samassa tahdissa Helsingin Sanomien datan kanssa</p>
+                    <p>
+                        Vihreät nuolet kuvastavat maita, joissa arvo on Suomea suurempi, punainen maita joissa pienempi.
+                    </p>
+                    <div class="country-infection-statistics">
+                        ${this.globalApiData
+                            ? Object.keys(this.globalApiData).map((country, i) => {
+                                  if (!this.showAllCountriesInList && i > 10) {
+                                      return;
+                                  }
+                                  return html`
+                                      <div class="country-infection-number-row">
+                                          <p>${country}</p>
+                                          <p class="confirmed-numbers">
+                                              Sairastumiset: ${this.globalApiData[country].totalConfirmed}
+                                              ${this.mortalityData.confirmedCount <
+                                              this.globalApiData[country].totalConfirmed
+                                                  ? html`
+                                                        <i class="material-icons green">keyboard_arrow_up</i>
+                                                    `
+                                                  : html`
+                                                        ${this.mortalityData.confirmedCount ===
+                                                        this.globalApiData[country].totalConfirmed
+                                                            ? html`
+                                                                  <span class="gray">=</span>
+                                                              `
+                                                            : html`
+                                                                  <i class="material-icons red">keyboard_arrow_down</i>
+                                                              `}
+                                                    `}
+                                          </p>
+                                          <p class="recovered-numbers">
+                                              Parantuneet: ${this.globalApiData[country].totalRecovered}
+                                              ${this.mortalityData.recoveredCount <
+                                              this.globalApiData[country].totalRecovered
+                                                  ? html`
+                                                        <i class="material-icons green">keyboard_arrow_up</i>
+                                                    `
+                                                  : html`
+                                                        ${this.mortalityData.recoveredCount ===
+                                                        this.globalApiData[country].totalRecovered
+                                                            ? html`
+                                                                  <span class="gray">=</span>
+                                                              `
+                                                            : html`
+                                                                  <i class="material-icons red">keyboard_arrow_down</i>
+                                                              `}
+                                                    `}
+                                          </p>
+                                          <p class="deaths-numbers">
+                                              Kuolleet: ${this.globalApiData[country].totalDeaths}
+                                              ${this.mortalityData.deathCount < this.globalApiData[country].totalDeaths
+                                                  ? html`
+                                                        <i class="material-icons green">keyboard_arrow_up</i>
+                                                    `
+                                                  : html`
+                                                        ${this.mortalityData.deathCount ===
+                                                        this.globalApiData[country].totalDeaths
+                                                            ? html`
+                                                                  <span class="gray">=</span>
+                                                              `
+                                                            : html`
+                                                                  <i class="material-icons red">keyboard_arrow_down</i>
+                                                              `}
+                                                    `}
+                                          </p>
+                                      </div>
+                                  `;
+                              })
+                            : ''}
+                    </div>
+                    ${!this.showAllCountriesInList
+                        ? html`
+                              <div
+                                  @click="${() => (this.showAllCountriesInList = true)}"
+                                  class="country-infection-numbers-list-show-all-button"
+                              >
+                                  <p>. . .</p>
+                              </div>
+                          `
+                        : ''}
+                </div>
             </div>
             <div class="footer">
                 <p>
@@ -347,12 +238,20 @@ class CoronaMonitor extends LitElement {
                     tasatunnein.
                 </p>
                 <p>
-                    Datan lähteenä toimii
-                    <a href="https://github.com/HS-Datadesk/koronavirus-avoindata">Helsingin sanomien avoin data</a>
+                    Sumen datan lähteenä toimii
+                    <a target="_blank" href="https://github.com/HS-Datadesk/koronavirus-avoindata"
+                        >Helsingin sanomien avoin data</a
+                    >
                 </p>
-                <a href="https://github.com/Matsuuu/finnish-corona-statistics/tree/master">GitHub</a>
-                <a href="https://twitter.com/matsutuss">Twitter</a>
-                <a href="https://www.linkedin.com/in/matias-huhta-b0b159106">LinkedIn</a>
+                <p>
+                    Globaalin datan lähteenä toimii
+                    <a target="_blank" href="https://github.com/CSSEGISandData/COVID-19"
+                        >Johns Hopkins University:n tarjoama data</a
+                    >
+                </p>
+                <a target="_blank" href="https://github.com/Matsuuu/finnish-corona-statistics/tree/master">GitHub</a>
+                <a target="_blank" href="https://twitter.com/matsutuss">Twitter</a>
+                <a target="_blank" href="https://www.linkedin.com/in/matias-huhta-b0b159106">LinkedIn</a>
             </div>
         `;
     }

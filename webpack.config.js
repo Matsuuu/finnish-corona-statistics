@@ -57,7 +57,7 @@ module.exports = {
             },
             {
                 context: '.',
-                from: 'corona-data.json',
+                from: '*-data.json',
                 to: '.',
             },
         ]),

@@ -60,7 +60,7 @@ export default class ChartDataBuilder {
                 labels: labelsWithCounts,
             },
             options: {
-                aspectRatio: window.innerWidth > 720 ? 1.5 : 0.75,
+                aspectRatio: window.innerWidth > 720 ? 1.25 : 0.5,
                 title: {
                     fontSize: 18,
                     display: true,
@@ -78,15 +78,17 @@ export default class ChartDataBuilder {
     }
     static getInfectionSourceCountryChart(sourceCountries) {
         let labelsWithCounts = [];
-        for (let country of Object.keys(sourceCountries)) {
-            labelsWithCounts.push(`${country !== 'null' ? country : 'Ei tiedossa'} ${sourceCountries[country]} kpl`);
+        for (let country of sourceCountries) {
+            labelsWithCounts.push(
+                `${country.name != null && country.name.length > 0 ? country.name : 'Ei tiedossa'} ${country.count} kpl`
+            );
         }
         return {
             type: 'doughnut',
             data: {
                 datasets: [
                     {
-                        data: Object.values(sourceCountries),
+                        data: sourceCountries.map(country => country.count),
                         backgroundColor: [...new Array(Object.keys(sourceCountries).length)].map(
                             (_ignore, i) => colorArray[i]
                         ),
@@ -184,11 +186,18 @@ export default class ChartDataBuilder {
     static getInfectionsSourcePercentage(infectionsBySourceCountry) {
         let finnishSources = 0;
         let foreignSources = 0;
-        for (let source of Object.keys(infectionsBySourceCountry)) {
-            if (source === 'FIN') {
-                finnishSources += infectionsBySourceCountry[source];
-            } else {
-                foreignSources += infectionsBySourceCountry[source];
+        let unknownSource = 0;
+        for (let source of infectionsBySourceCountry) {
+            switch (source.name) {
+                case 'FIN':
+                    finnishSources += source.count;
+                    break;
+                case null:
+                    unknownSource += source.count;
+                    break;
+                default:
+                    foreignSources += source.count;
+                    break;
             }
         }
         return {
@@ -196,11 +205,15 @@ export default class ChartDataBuilder {
             data: {
                 datasets: [
                     {
-                        data: [finnishSources, foreignSources],
-                        backgroundColor: [colorArray[0], colorArray[1]],
+                        data: [finnishSources, foreignSources, unknownSource],
+                        backgroundColor: [colorArray[0], colorArray[1], colorArray[2]],
                     },
                 ],
-                labels: ['Suomesta lähtöisin olevat tartunnat', 'Ulkomailta lähtöisin olevat tartunnat'],
+                labels: [
+                    'Suomesta lähtöisin olevat tartunnat',
+                    'Ulkomailta lähtöisin olevat tartunnat',
+                    'Vahvistamattomat lähteet',
+                ],
             },
             options: {
                 aspectRatio: window.innerWidth > 720 ? 2 : 0.75,
@@ -212,7 +225,7 @@ export default class ChartDataBuilder {
                 legend: {
                     position: window.innerWidth > 720 ? 'right' : 'bottom',
                     labels: {
-                        fontSize: 18,
+                        fontSize: window.innerWidth > 720 ? 18 : 14,
                     },
                 },
             },
@@ -265,7 +278,7 @@ export default class ChartDataBuilder {
                 ],
             },
             options: {
-                aspectRatio: window.innerWidth > 720 ? 1.75 : 0.75,
+                aspectRatio: window.innerWidth > 720 ? 2.5 : 1,
                 title: {
                     display: true,
                     text: ['Sairastuneiden määrä (Kumulatiivinen)', 'Parantuneet vähennetään sairastuneista'],
@@ -274,7 +287,8 @@ export default class ChartDataBuilder {
                 legend: {
                     position: 'bottom',
                     labels: {
-                        fontSize: 18,
+                        boxWidth: window.innerWidth > 720 ? 40 : 30,
+                        fontSize: window.innerWidth > 720 ? 18 : 14,
                     },
                 },
                 tooltips: {
