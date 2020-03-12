@@ -174,7 +174,7 @@ class CoronaMonitor extends LitElement {
                     <canvas id="infections-source-country-percentages-chart-area"></canvas>
                 </div>
                 <h3>Globaaleja tilastoja</h3>
-
+                <p>Data ei välttämättä ole samassa tahdissa Helsingin Sanomien datan kanssa</p>
                 <div class="numbers global-numbers" id="total-global-infections">
                     <p>Tartuntojen määrä (globaali)</p>
                     <h2 class="confirmed-numbers"></h2>
@@ -195,12 +195,11 @@ class CoronaMonitor extends LitElement {
                     <p>Suljetut tapaukset (globaali)</p>
                     <h2></h2>
                 </div>
-
+                <h3>Maat listattuna</h3>
+                <p>
+                    Vihreät nuolet kuvastavat maita, joissa arvo on Suomea suurempi, punainen maita joissa pienempi.
+                </p>
                 <div class="country-infection-numbers-list">
-                    <p>Data ei välttämättä ole samassa tahdissa Helsingin Sanomien datan kanssa</p>
-                    <p>
-                        Vihreät nuolet kuvastavat maita, joissa arvo on Suomea suurempi, punainen maita joissa pienempi.
-                    </p>
                     <div class="country-infection-statistics">
                         ${this.globalApiData
                             ? Object.keys(this.globalApiData).map((country, i) => {

@@ -93,6 +93,12 @@ const styles = css`
         margin: 1rem 2rem;
     }
 
+    .data-wrapper > p {
+        width: 100%;
+        color: #484848;
+        margin: 0.5rem 2rem;
+    }
+
     .data-wrapper > .country-infection-numbers-list {
         display: flex;
         flex-direction: column;
