@@ -73,10 +73,13 @@ const styles = css`
         flex-direction: column;
     }
 
+    .data-wrapper > .global-numbers {
+        flex-basis: 25%;
+    }
+
     .data-wrapper > .numbers > h2 {
         font-size: 3rem;
         width: max-content;
-        color: #484848;
     }
     .data-wrapper > .numbers > p {
         font-size: 1.4rem;
@@ -114,13 +117,17 @@ const styles = css`
     }
 
     .confirmed-numbers {
-        color: red;
+        color: #f72c2c;
     }
 
     .recovered-numbers {
         color: green;
     }
     .deaths-numbers {
+        color: gray;
+    }
+
+    .active-numbers {
         color: gray;
     }
 
@@ -137,14 +144,6 @@ const styles = css`
 
     .country-infection-number-row > p:first-child {
         flex-basis: 32.5%;
-    }
-
-    .green {
-        color: green;
-    }
-
-    .red {
-        color: red;
     }
 
     .gray {
@@ -204,6 +203,10 @@ const styles = css`
         }
         .data-wrapper > .numbers > h2 {
             font-size: 3rem;
+        }
+
+        .data-wrapper > .numbers > p {
+            font-size: 1.1rem;
         }
 
         .about-section {
