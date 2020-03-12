@@ -16,13 +16,17 @@ export default class ChartDataParser {
     }
 
     static getInfectionsBySourceCountry(apiData) {
-        let infectionsBySourceCountry = {};
+        let infectionsBySourceCountry = [];
         let infectionCountries = new Set(apiData.confirmed.map(confirmedCase => confirmedCase.infectionSourceCountry));
         for (let infectionCountry of infectionCountries) {
-            infectionsBySourceCountry[infectionCountry] = apiData.confirmed.filter(
-                confirmedCase => confirmedCase.infectionSourceCountry === infectionCountry
-            ).length;
+            infectionsBySourceCountry.push({
+                name: infectionCountry,
+                count: apiData.confirmed.filter(
+                    confirmedCase => confirmedCase.infectionSourceCountry === infectionCountry
+                ).length,
+            });
         }
+        infectionsBySourceCountry.sort((a, b) => b.count - a.count);
         return infectionsBySourceCountry;
     }
 

@@ -1,6 +1,29 @@
 import { css } from 'lit-element';
 
 const styles = css`
+    @font-face {
+        font-family: 'Material Icons';
+        font-style: normal;
+        font-weight: 400;
+        src: url(https://fonts.gstatic.com/s/materialicons/v50/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+    }
+
+    .material-icons {
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -webkit-font-feature-settings: 'liga';
+        -webkit-font-smoothing: antialiased;
+    }
+
     :host {
         font-family: 'Roboto', sans-serif;
         background: #fafafa;
@@ -38,6 +61,10 @@ const styles = css`
         align-items: center;
     }
 
+    #infections-total-cumulative {
+        flex-basis: 90%;
+    }
+
     .data-wrapper > .numbers {
         flex-basis: 20%;
         display: flex;
@@ -61,6 +88,84 @@ const styles = css`
         width: 100%;
         color: #484848;
         margin: 1rem 2rem;
+    }
+
+    .data-wrapper > .country-infection-numbers-list {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 80%;
+        padding: 0;
+    }
+
+    .data-wrapper > .country-infection-numbers-list > p {
+        margin: 0.5rem 0;
+    }
+
+    .country-infection-statistics {
+        width: 90%;
+        padding: 1rem 0;
+    }
+
+    .country-infection-number-row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .confirmed-numbers {
+        color: red;
+    }
+
+    .recovered-numbers {
+        color: green;
+    }
+    .deaths-numbers {
+        color: gray;
+    }
+
+    .country-infection-number-row > p {
+        flex-basis: 25%;
+        margin: 0.5rem 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .country-infection-number-row > p:last-child {
+        flex-basis: 17.5%;
+    }
+
+    .country-infection-number-row > p:first-child {
+        flex-basis: 32.5%;
+    }
+
+    .green {
+        color: green;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .gray {
+        color: gray;
+        padding-left: 5px;
+    }
+
+    .country-infection-numbers-list-show-all-button {
+        width: 100%;
+        height: 4rem;
+        background: whitesmoke;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        cursor: pointer;
+        transition: 0.2s ease-in;
+    }
+
+    .country-infection-numbers-list-show-all-button:hover {
+        background: #dbd7d7;
     }
 
     .footer {
@@ -90,6 +195,7 @@ const styles = css`
 
         .data-wrapper > div {
             flex-basis: 95%;
+            max-width: 90%;
             margin-bottom: 5%;
         }
 
