@@ -38,7 +38,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin({
             verbose: true,
-            cleanAfterEveryBuildPatterns: ['!*.png', '!*.json'],
+            cleanAfterEveryBuildPatterns: ['!*.png', '!*.json', '!*.svg', '!*.ico', '!*.txt'],
         }),
         new HtmlWebPackPlugin({
             template: './src/index.html',
@@ -58,6 +58,11 @@ module.exports = {
             {
                 context: '.',
                 from: '*-data.json',
+                to: '.',
+            },
+            {
+                context: './src',
+                from: 'robots.txt',
                 to: '.',
             },
         ]),
