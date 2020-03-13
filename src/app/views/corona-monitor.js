@@ -6,6 +6,7 @@ import Chart from 'chart.js';
 import coronaData from 'corona-data';
 import ChartDataParser from '../services/chart-data-parser';
 import styles from 'assets/styles/main-styles.js';
+import Translator from '../util/translator';
 
 class CoronaMonitor extends LitElement {
     static get properties() {
@@ -35,13 +36,39 @@ class CoronaMonitor extends LitElement {
     }
 
     firstUpdated(_changedProperties) {
+        this.setLang();
         this.getApiData();
+    }
+
+    setLang() {
+        let setLangInStorage = localStorage.getItem('USER_SET_LANG');
+        let lang = setLangInStorage ? setLangInStorage : navigator.language;
+        if (lang.includes('-')) {
+            lang = lang.split('-')[0];
+        }
+        if (
+            !Translator.getPossibleLanguages()
+                .map(lang => lang.key)
+                .includes(lang)
+        ) {
+            console.error(`Lang ${lang} not found. Defaulting to English.`);
+            lang = 'en';
+        }
+        Translator.getPossibleLanguages();
+        Translator.setLang(lang);
+        localStorage.setItem('USER_SET_LANG', lang);
+    }
+
+    handleLanguageChange(e) {
+        let selectedLang = e.target.value;
+        localStorage.setItem('USER_SET_LANG', selectedLang);
+        Translator.setLang(selectedLang);
+        window.location.reload();
     }
 
     async getApiData() {
         this.apiData = await fetch(this.apiUrl).then(res => res.json());
         this.globalApiData = await fetch(this.globalApiUrl).then(res => res.json());
-        console.log(this.globalApiData);
         this.renderElements();
     }
 
@@ -117,7 +144,6 @@ class CoronaMonitor extends LitElement {
             globalRecovered += Number(country.totalRecovered);
             globalDeaths += Number(country.totalDeaths);
         }
-        console.log({ globalConfirmed, globalRecovered, globalDeaths });
 
         let globalConfirmedDiv = this.shadowRoot.querySelector('#total-global-infections');
         let globalRecoveredDiv = this.shadowRoot.querySelector('#total-global-recovered');
@@ -137,29 +163,43 @@ class CoronaMonitor extends LitElement {
 
     render() {
         return html`
+            <div class="language-switcher">
+                <p>${Translator.get('language')}</p>
+                <select id="language-selector" @change="${this.handleLanguageChange}"
+                    ><option value="${Translator.getLang().key}">${Translator.getLang().name}</option>
+                    ${Translator.getPossibleLanguages().map(lang => {
+                        if (lang.key === Translator.lang) {
+                            return;
+                        }
+                        return html`
+                            <option value="${lang.key}">${lang.name}</option>
+                        `;
+                    })}</select
+                >
+            </div>
             <div class="about-section">
-                <h1>Korona-info</h1>
-                <p>Korona-Info on luotu tarjoamaan ihmisille reaaliaikaista tietoa Korona-viruksen tilasta Suomessa</p>
+                <h1>${Translator.get('corona_info_title')}</h1>
+                <p>${Translator.get('corona_info_subtitle')}</p>
             </div>
             <div class="data-wrapper">
-                <h3>Koronavirus numeroina</h3>
+                <h3>${Translator.get('corona_as_numbers')}</h3>
                 <div class="numbers" id="infection-count">
-                    <p>Tartuntojen määrä</p>
+                    <p>${Translator.get('infection_count')}</p>
                     <h2 class="confirmed-numbers"></h2>
                 </div>
                 <div class="numbers" id="recovered-count">
-                    <p>Parantuneiden määrä</p>
+                    <p>${Translator.get('recovered_count')}</p>
                     <h2 class="recovered-numbers"></h2>
                 </div>
                 <div class="numbers" id="infection-percentage">
-                    <p>Tartunnan saaneiden %</p>
+                    <p>${Translator.get('infected_percentage')}</p>
                     <h2 class="deaths-numbers"></h2>
                 </div>
                 <div class="numbers" id="mortality-rate">
-                    <p>Sairastuneista kuolleita %</p>
+                    <p>${Translator.get('mortality_rate')}</p>
                     <h2></h2>
                 </div>
-                <h3>Tartuntojen määrä</h3>
+                <h3>${Translator.get('infection_count')}</h3>
                 <div id="infections-by-region">
                     <canvas id="infections-by-region-chart-area"></canvas>
                 </div>
@@ -169,42 +209,42 @@ class CoronaMonitor extends LitElement {
                 <div id="infections-total-cumulative">
                     <canvas id="infections-total-cumulative-chart-area"></canvas>
                 </div>
-                <h3>Tartuntojen lähde</h3>
+                <h3>${Translator.get('infection_source')}</h3>
                 <div id="infection-source-countries">
                     <canvas id="infection-source-countries-chart-area"></canvas>
                 </div>
                 <div id="infections-source-country-percentages">
                     <canvas id="infections-source-country-percentages-chart-area"></canvas>
                 </div>
-                <h3>Globaaleja tilastoja</h3>
-                <p>Data ei välttämättä ole samassa tahdissa Helsingin Sanomien datan kanssa</p>
+                <h3>${Translator.get('global_statistics')}</h3>
+                <p>${Translator.get('data_might_not_be_in_sync_with_hs')}</p>
                 <div class="numbers global-numbers" id="total-global-infections">
-                    <p>Tartuntojen määrä <br />(globaali)</p>
+                    <p>${Translator.get('infection_count')} <br />${Translator.get('global_suffix')}</p>
                     <h2 class="confirmed-numbers"></h2>
                 </div>
                 <div class="numbers global-numbers" id="total-global-recovered">
-                    <p>Parantuneiden määrä <br />(globaali)</p>
+                    <p>${Translator.get('recovered_count')} <br />${Translator.get('global_suffix')}</p>
                     <h2 class="recovered-numbers"></h2>
                 </div>
                 <div class="numbers global-numbers" id="total-global-deaths">
-                    <p>Sairastuneista kuolleita <br />(globaali)</p>
+                    <p>${Translator.get('mortality_count')} <br />${Translator.get('global_suffix')}</p>
                     <h2 class="deaths-numbers"></h2>
                 </div>
                 <div class="numbers global-numbers" id="total-global-active">
-                    <p>Aktiivisia tapauksia <br />(globaali)</p>
+                    <p>${Translator.get('active_cases')} <br />${Translator.get('global_suffix')}</p>
                     <h2></h2>
                 </div>
                 <div class="numbers global-numbers" id="total-global-closed">
-                    <p>Suljetut tapaukset <br />(globaali)</p>
+                    <p>${Translator.get('closed_cases')} <br />${Translator.get('global_suffix')}</p>
                     <h2></h2>
                 </div>
                 <div class="numbers global-numbers" id="global-mortality-rate">
-                    <p>Sairastuneiden eloonjäämisprosentti <br />(globaali)</p>
+                    <p>${Translator.get('infected_survival_percentage')} <br />${Translator.get('global_suffix')}</p>
                     <h2 class="recovered-numbers"></h2>
                 </div>
-                <h3>Maat listattuna</h3>
+                <h3>${Translator.get('countries_listed')}</h3>
                 <p>
-                    Vihreät nuolet kuvastavat maita, joissa arvo on Suomea suurempi, punainen maita joissa pienempi.
+                    ${Translator.get('countries_listed_subtitle')}
                 </p>
                 <div class="country-infection-numbers-list">
                     <div class="country-infection-statistics">
@@ -300,19 +340,18 @@ class CoronaMonitor extends LitElement {
             </div>
             <div class="footer">
                 <p>
-                    Korona-info sisältää tietoa COVID-19 tartunnoista Suomessa. Korona-info päivittää tietonsa
-                    tasatunnein.
+                    ${Translator.get('footer_info')}
                 </p>
                 <p>
-                    Sumen datan lähteenä toimii
+                    ${Translator.get('footer_finnish_data_info')}
                     <a target="_blank" href="https://github.com/HS-Datadesk/koronavirus-avoindata"
-                        >Helsingin sanomien avoin data</a
+                        >${Translator.get('footer_finnish_data_link_text')}</a
                     >
                 </p>
                 <p>
-                    Globaalin datan lähteenä toimii
+                    ${Translator.get('footer_global_data_info')}
                     <a target="_blank" href="https://github.com/CSSEGISandData/COVID-19"
-                        >Johns Hopkins University:n tarjoama data</a
+                        >${Translator.get('footer_global_data_link_text')}</a
                     >
                 </p>
                 <a target="_blank" href="https://github.com/Matsuuu/finnish-corona-statistics/tree/master">GitHub</a>

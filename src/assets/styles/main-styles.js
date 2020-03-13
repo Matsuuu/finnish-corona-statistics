@@ -29,6 +29,34 @@ const styles = css`
         background: #fafafa;
         display: block;
     }
+
+    .language-switcher {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        display: flex;
+    }
+
+    .language-switcher > p {
+        margin: 0 1rem 0 0;
+        color: #484848;
+        font-weight: bold;
+    }
+
+    .language-switcher > select {
+        background: none;
+        border: none;
+        border-bottom: 1px solid #484848;
+        padding: 0 2rem 0 0;
+        color: #484848;
+        outline: none;
+        transition: 0.1s linear;
+    }
+
+    .language-switcher > select:hover {
+        background: whitesmoke;
+    }
+
     .about-section {
         width: 50%;
         display: flex;
@@ -198,6 +226,10 @@ const styles = css`
     }
 
     @media only screen and (max-width: 780px) {
+        .about-section {
+            padding-top: 3rem;
+        }
+
         .data-wrapper {
             margin: 0 1%;
         }
