@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a0cbf1f-a550-4ed4-bc5e-9b56b5d4d906" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/assets/language/translations.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corona-data.json" beforeDir="false" afterPath="$PROJECT_DIR$/corona-data.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/services/chart-data-builder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/chart-data-builder.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/corona-monitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/corona-monitor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/styles/main-styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/styles/main-styles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +62,7 @@
       <workItem from="1583921529375" duration="974000" />
       <workItem from="1583922881295" duration="3635000" />
       <workItem from="1583931984103" duration="14219000" />
-      <workItem from="1584086054670" duration="4030000" />
+      <workItem from="1584086054670" duration="4897000" />
     </task>
     <servers />
   </component>
