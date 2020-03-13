@@ -39,7 +39,8 @@
     "infections_originated_from_unknown_sources": "Vahvistamattomat lähteet",
     "infections_originated_from_finland_vs_other_sources": "Suomesta vs Ulkomailta lähtöisin olleet tartunnat",
     "infection_count_cumulative": "Sairastuneiden määrä (Kumulatiivinen)",
-    "recovered_count_cumulative": "Parantuneiden määrä (Kumulatiivinen)"
+    "recovered_count_cumulative": "Parantuneiden määrä (Kumulatiivinen)",
+    "filter_data_starting_from_date": "Suodata alkaen päivästä"
   },
   "en": {
     "lang_name": "English",
@@ -81,7 +82,8 @@
     "infections_originated_from_unknown_sources": "Infections originated from unknown sources",
     "infections_originated_from_finland_vs_other_sources": "Infections originated from Finland vs outside of Finland",
     "infection_count_cumulative": "Infected count (Cumulative)",
-    "recovered_count_cumulative": "Recovered count (Cumulative)"
+    "recovered_count_cumulative": "Recovered count (Cumulative)",
+    "filter_data_starting_from_date": "Filter starting from date"
   },
   "sv": {
     "lang_name": "Svenska",
@@ -123,7 +125,8 @@
     "infections_originated_from_unknown_sources": "Infections originated from unknown sources",
     "infections_originated_from_finland_vs_other_sources": "Infections originated from Finland vs outside of Finland",
     "infection_count_cumulative": "Infected count (Cumulative)",
-    "recovered_count_cumulative": "Recovered count (Cumulative)"
+    "recovered_count_cumulative": "Recovered count (Cumulative)",
+    "filter_data_starting_from_date": "Filter data starting from date"
   }, 
   "et": {
     "lang_name": "Eesti",
@@ -165,6 +168,7 @@
     "infections_originated_from_unknown_sources": "Nakkused tundmatutest allikatest",
     "infections_originated_from_finland_vs_other_sources": "Nakkuse pärinemine Soomesiseselt vs väliselt",
     "infection_count_cumulative": "Nakatute arv (kumulatiivne)",
-    "recovered_count_cumulative": "Taastunute arv (kumulatiivne)"
+    "recovered_count_cumulative": "Taastunute arv (kumulatiivne)",
+    "filter_data_starting_from_date": "Filtreeri alates"
   }
 }

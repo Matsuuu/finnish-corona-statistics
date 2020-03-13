@@ -86,7 +86,13 @@ const styles = css`
         margin: 1rem;
         border-radius: 5px;
         display: flex;
+        flex-direction: column;
         align-items: center;
+        font-weight: bold;
+    }
+
+    .data-wrapper > div > p {
+        text-align: center;
     }
 
     #infections-total-cumulative {
