@@ -152,11 +152,11 @@
     "recovered": "Taastunud",
     "deaths": "Surmad",
     "death_cases": "Surmajuhtumid",
-    "footer_info": "Koroona info jagab informatsioonid COVID-19 juhtumite kohta Soomas. Andmeid uuendatakse iga 10 minuti tagant.",
+    "footer_info": "Koroona info jagab informatsiooni COVID-19 juhtumite kohta Soomes. Andmeid uuendatakse iga 10 minuti tagant.",
     "footer_finnish_data_info": "Soome andmete allikana kasutame",
     "footer_finnish_data_link_text": "Helsingin Sanomat poolt pakutud avatud andmeid",
     "footer_global_data_info": "Globaalsete andmete allikana kasutame",
-    "footer_global_data_link_text": "Andmeid pakutud John Hopkins University poolt",
+    "footer_global_data_link_text": "John Hopkins Ülikooli poolt avaldatud andmeid",
 
     "unknown": "Pole teada",
     "pcs": "tk",
@@ -166,7 +166,7 @@
     "infections_originated_from_finland": "Nakkused Soomesiseselt",
     "infections_originated_from_foreign_countries": "Nakkused välisriikidest",
     "infections_originated_from_unknown_sources": "Nakkused tundmatutest allikatest",
-    "infections_originated_from_finland_vs_other_sources": "Nakkuse pärinemine Soomesiseselt vs väliselt",
+    "infections_originated_from_finland_vs_other_sources": "Nakkuse pärinemine Soomesiseselt vs välisriikidest",
     "infection_count_cumulative": "Nakatute arv (kumulatiivne)",
     "recovered_count_cumulative": "Taastunute arv (kumulatiivne)",
     "filter_data_starting_from_date": "Filtreeri alates"
