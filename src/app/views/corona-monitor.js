@@ -18,6 +18,7 @@ class CoronaMonitor extends LitElement {
             mortalityData: { type: Object },
 
             showAllCountriesInList: { type: Boolean },
+            cumulativeInfectionsChart: { type: Object },
         };
     }
 
@@ -33,6 +34,7 @@ class CoronaMonitor extends LitElement {
         this.globalApiData = null;
         this.showAllCountriesInList = false;
         this.finlandInfectedCount = 0;
+        this.cumulativeInfectionsChart = null;
     }
 
     firstUpdated(_changedProperties) {
@@ -108,9 +110,26 @@ class CoronaMonitor extends LitElement {
     }
 
     createInfectionsCumulativeChart(infectionsByDay, recoveredByDay) {
-        let chartConfig = ChartDataBuilder.getInfectionsByDayChartCumulative(infectionsByDay, recoveredByDay);
+        let chartConfig = ChartDataBuilder.getInfectionsByDayChartCumulative(infectionsByDay, recoveredByDay, null);
         let ctx = this.shadowRoot.querySelector('#infections-total-cumulative-chart-area').getContext('2d');
-        new Chart(ctx, chartConfig);
+        this.cumulativeInfectionsChart = new Chart(ctx, chartConfig);
+    }
+
+    handleCumulativeChartDateChange(e) {
+        let infectionsByDay = ChartDataParser.getInfectionsByDay(this.apiData);
+        let recoveredByDay = ChartDataParser.getRecoveriesByDay(this.apiData);
+        let newStartDateTimeStamp = dayjs(e.target.value)
+            .set('hour', 0)
+            .set('minute', 0)
+            .set('second', 0)
+            .unix();
+        let chartConfig = ChartDataBuilder.getInfectionsByDayChartCumulative(
+            infectionsByDay,
+            recoveredByDay,
+            newStartDateTimeStamp
+        );
+        this.cumulativeInfectionsChart.config = chartConfig;
+        this.cumulativeInfectionsChart.update();
     }
 
     createMortalityRateNumber(mortalityData) {
@@ -208,6 +227,8 @@ class CoronaMonitor extends LitElement {
                 </div>
                 <div id="infections-total-cumulative">
                     <canvas id="infections-total-cumulative-chart-area"></canvas>
+                    <p>${Translator.get('filter_data_starting_from_date')}</p>
+                    <input type="date" @change="${this.handleCumulativeChartDateChange}" />
                 </div>
                 <h3>${Translator.get('infection_source')}</h3>
                 <div id="infection-source-countries">
@@ -257,7 +278,8 @@ class CoronaMonitor extends LitElement {
                                       <div class="country-infection-number-row">
                                           <p>${country}</p>
                                           <p class="confirmed-numbers">
-                                              Sairastumiset: ${this.globalApiData[country].totalConfirmed}
+                                              ${Translator.get('infected')}:
+                                              ${this.globalApiData[country].totalConfirmed}
                                               ${this.mortalityData.confirmedCount <
                                               this.globalApiData[country].totalConfirmed
                                                   ? html`
@@ -279,7 +301,8 @@ class CoronaMonitor extends LitElement {
                                                     `}
                                           </p>
                                           <p class="recovered-numbers">
-                                              Parantuneet: ${this.globalApiData[country].totalRecovered}
+                                              ${Translator.get('recovered')}:
+                                              ${this.globalApiData[country].totalRecovered}
                                               ${this.mortalityData.recoveredCount <
                                               this.globalApiData[country].totalRecovered
                                                   ? html`
@@ -301,7 +324,7 @@ class CoronaMonitor extends LitElement {
                                                     `}
                                           </p>
                                           <p class="deaths-numbers">
-                                              Kuolleet: ${this.globalApiData[country].totalDeaths}
+                                              ${Translator.get('deaths')}: ${this.globalApiData[country].totalDeaths}
                                               ${this.mortalityData.deathCount < this.globalApiData[country].totalDeaths
                                                   ? html`
                                                         <i class="material-icons recovered-numbers"

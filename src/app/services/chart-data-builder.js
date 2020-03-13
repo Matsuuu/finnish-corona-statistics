@@ -235,9 +235,9 @@ export default class ChartDataBuilder {
         };
     }
 
-    static getInfectionsByDayChartCumulative(infectionsByDay, recoveriesByDay) {
+    static getInfectionsByDayChartCumulative(infectionsByDay, recoveriesByDay, setDate) {
         let dates = [...new Set([...Object.keys(infectionsByDay)])];
-        let firstDay = dates[0];
+        let firstDay = setDate ? setDate : dates[0];
         let lastDay = Date.now() / 1000 - 86400;
         let lastAddedDate = firstDay - 86400; // Reduce on day
         let labels = [];
@@ -250,6 +250,15 @@ export default class ChartDataBuilder {
 
         let totalInfected = 0;
         let totalRecovered = 0;
+        if (setDate) {
+            let datesBeforeFirstDay = [...Object.keys(infectionsByDay), ...Object.keys(recoveriesByDay)].filter(
+                date => date < firstDay
+            );
+            for (let date of datesBeforeFirstDay) {
+                totalInfected += infectionsByDay[date] ? infectionsByDay[date] : 0;
+                totalRecovered += recoveriesByDay[date] ? recoveriesByDay[date] : 0;
+            }
+        }
         for (let label of labels) {
             totalInfected += infectionsByDay[label] ? infectionsByDay[label] : 0;
             totalRecovered += recoveriesByDay[label] ? recoveriesByDay[label] : 0;
