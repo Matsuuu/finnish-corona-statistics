@@ -124,12 +124,15 @@ class CoronaMonitor extends LitElement {
         let globalDeathsDiv = this.shadowRoot.querySelector('#total-global-deaths');
         let globalActiveCasesDiv = this.shadowRoot.querySelector('#total-global-active');
         let globalClosedCasesDiv = this.shadowRoot.querySelector('#total-global-closed');
+        let globalMortalityRateDiv = this.shadowRoot.querySelector('#global-mortality-rate');
 
         globalConfirmedDiv.querySelector('h2').innerText = globalConfirmed;
         globalRecoveredDiv.querySelector('h2').innerText = globalRecovered;
         globalDeathsDiv.querySelector('h2').innerText = globalDeaths;
         globalActiveCasesDiv.querySelector('h2').innerText = globalConfirmed - globalRecovered - globalDeaths;
         globalClosedCasesDiv.querySelector('h2').innerText = globalRecovered + globalDeaths;
+        globalMortalityRateDiv.querySelector('h2').innerText =
+            100 - ((globalDeaths / (globalRecovered + globalDeaths)) * 100).toFixed(2) + '%';
     }
 
     render() {
@@ -176,24 +179,28 @@ class CoronaMonitor extends LitElement {
                 <h3>Globaaleja tilastoja</h3>
                 <p>Data ei välttämättä ole samassa tahdissa Helsingin Sanomien datan kanssa</p>
                 <div class="numbers global-numbers" id="total-global-infections">
-                    <p>Tartuntojen määrä (globaali)</p>
+                    <p>Tartuntojen määrä <br />(globaali)</p>
                     <h2 class="confirmed-numbers"></h2>
                 </div>
                 <div class="numbers global-numbers" id="total-global-recovered">
-                    <p>Parantuneiden määrä (globaali)</p>
+                    <p>Parantuneiden määrä <br />(globaali)</p>
                     <h2 class="recovered-numbers"></h2>
                 </div>
                 <div class="numbers global-numbers" id="total-global-deaths">
-                    <p>Sairastuneista kuolleita (globaali)</p>
+                    <p>Sairastuneista kuolleita <br />(globaali)</p>
                     <h2 class="deaths-numbers"></h2>
                 </div>
                 <div class="numbers global-numbers" id="total-global-active">
-                    <p>Aktiivisia tapauksia (globaali)</p>
+                    <p>Aktiivisia tapauksia <br />(globaali)</p>
                     <h2></h2>
                 </div>
                 <div class="numbers global-numbers" id="total-global-closed">
-                    <p>Suljetut tapaukset (globaali)</p>
+                    <p>Suljetut tapaukset <br />(globaali)</p>
                     <h2></h2>
+                </div>
+                <div class="numbers global-numbers" id="global-mortality-rate">
+                    <p>Sairastuneiden eloonjäämisprosentti <br />(globaali)</p>
+                    <h2 class="recovered-numbers"></h2>
                 </div>
                 <h3>Maat listattuna</h3>
                 <p>

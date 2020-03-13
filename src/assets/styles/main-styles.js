@@ -77,6 +77,10 @@ const styles = css`
         flex-basis: 25%;
     }
 
+    .data-wrapper > .global-numbers > p {
+        text-align: center;
+    }
+
     .data-wrapper > .numbers > h2 {
         font-size: 3rem;
         width: max-content;
