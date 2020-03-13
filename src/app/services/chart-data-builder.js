@@ -237,7 +237,11 @@ export default class ChartDataBuilder {
 
     static getInfectionsByDayChartCumulative(infectionsByDay, recoveriesByDay, setDate) {
         let dates = [...new Set([...Object.keys(infectionsByDay)])];
-        let firstDay = setDate ? setDate : dates[0];
+        let firstDay = setDate ? setDate : Number(dates[0]);
+        let firstInfectionDate = Number(dates[0]);
+        if (firstDay < firstInfectionDate) {
+            firstDay = firstInfectionDate;
+        }
         let lastDay = Date.now() / 1000 - 86400;
         let lastAddedDate = firstDay - 86400; // Reduce on day
         let labels = [];
