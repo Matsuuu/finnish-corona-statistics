@@ -33,7 +33,7 @@
     "pcs": "kpl",
     "infections_by_health_case_district": "Tartuntojen määrä sairaanhoitopiireittäin",
     "infection_source_countries": "Tartuntojen lähdemaat",
-    "infections_and_death_cases_by_day": "Sairastumiset ja kuolontapaukset päivittäin",
+    "infections_and_death_cases_by_day": "Sairastumiset ja kuolemantapaukset päivittäin",
     "infections_originated_from_finland": "Suomesta lähtöisin olevat tartunnat",
     "infections_originated_from_foreign_countries": "Ulkomailta lähtöisin olevat tartunnat",
     "infections_originated_from_unknown_sources": "Vahvistamattomat lähteet",
