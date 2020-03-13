@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import Translator from '../util/translator';
 
 let colorArray = [
     '#ff6384aa',
@@ -64,7 +65,7 @@ export default class ChartDataBuilder {
                 title: {
                     fontSize: 18,
                     display: true,
-                    text: 'Tartuntojen määrä sairaanhoitopiireittäin',
+                    text: Translator.get('infections_by_health_case_district'),
                 },
                 legend: {
                     position: window.innerWidth > 720 ? 'right' : 'bottom',
@@ -80,7 +81,9 @@ export default class ChartDataBuilder {
         let labelsWithCounts = [];
         for (let country of sourceCountries) {
             labelsWithCounts.push(
-                `${country.name != null && country.name.length > 0 ? country.name : 'Ei tiedossa'} ${country.count} kpl`
+                `${country.name != null && country.name.length > 0 ? country.name : Translator.get('unknown')} ${
+                    country.count
+                } ${Translator.get('pcs')}`
             );
         }
         return {
@@ -101,7 +104,7 @@ export default class ChartDataBuilder {
                 title: {
                     fontSize: 18,
                     display: true,
-                    text: 'Tartuntojen lähdemaat',
+                    text: Translator.get('infection_source_countries'),
                 },
                 legend: {
                     position: window.innerWidth > 720 ? 'right' : 'bottom',
@@ -135,12 +138,12 @@ export default class ChartDataBuilder {
                 labels: labels.map(label => dayjs(label * 1000).format('DD-MM-YYYY')),
                 datasets: [
                     {
-                        label: 'Sairastumiset',
+                        label: Translator.get('infected'),
                         data: infectionsByDayData,
                         backgroundColor: colorArray[0],
                     },
                     {
-                        label: 'Kuolemantapaukset',
+                        label: Translator.get('death_cases'),
                         data: Object.values(deathsByDay),
                         backgroundColor: colorArray[1],
                     },
@@ -150,7 +153,7 @@ export default class ChartDataBuilder {
                 aspectRatio: window.innerWidth > 720 ? 1.5 : 0.75,
                 title: {
                     display: true,
-                    text: 'Sairastumiset ja kuolontapaukset päivittäin',
+                    text: Translator.get('infections_and_death_cases_by_day'),
                     fontSize: 18,
                 },
                 legend: {
@@ -210,9 +213,9 @@ export default class ChartDataBuilder {
                     },
                 ],
                 labels: [
-                    'Suomesta lähtöisin olevat tartunnat',
-                    'Ulkomailta lähtöisin olevat tartunnat',
-                    'Vahvistamattomat lähteet',
+                    Translator.get('infections_originated_from_finland'),
+                    Translator.get('infections_originated_from_foreign_countries'),
+                    Translator.get('infections_originated_from_unknown_sources'),
                 ],
             },
             options: {
@@ -220,7 +223,7 @@ export default class ChartDataBuilder {
                 title: {
                     fontSize: 18,
                     display: true,
-                    text: 'Suomesta vs Ulkomailta lähtöisin olleet tartunnat',
+                    text: Translator.get('infections_originated_from_finland_vs_other_sources'),
                 },
                 legend: {
                     position: window.innerWidth > 720 ? 'right' : 'bottom',
@@ -264,13 +267,13 @@ export default class ChartDataBuilder {
                 labels: labels.map(label => dayjs(label * 1000).format('DD-MM-YYYY')),
                 datasets: [
                     {
-                        label: 'Sairastuneiden määrä (Kumulatiivinen)',
+                        label: Translator.get('infection_count_cumulative'),
                         data: infectionsByDayData,
                         backgroundColor: colorArray[0],
                         fill: 'start',
                     },
                     {
-                        label: 'Parantuneiden määrä (Kumulatiivinen)',
+                        label: Translator.get('recovered_count_cumulative'),
                         data: recoveriesByDayData,
                         backgroundColor: colorArray[25],
                         fill: '-1',
@@ -281,7 +284,7 @@ export default class ChartDataBuilder {
                 aspectRatio: window.innerWidth > 720 ? 2.5 : 1,
                 title: {
                     display: true,
-                    text: ['Sairastuneiden määrä (Kumulatiivinen)', 'Parantuneet vähennetään sairastuneista'],
+                    text: [Translator.get('infection_count_cumulative'), Translator.get('recovered_count_cumulative')],
                     fontSize: 16,
                 },
                 legend: {
