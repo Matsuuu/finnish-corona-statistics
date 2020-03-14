@@ -19,6 +19,8 @@ class CoronaMonitor extends LitElement {
 
             showAllCountriesInList: { type: Boolean },
             cumulativeInfectionsChart: { type: Object },
+            increaseTodayIsHigher: { type: Boolean },
+            caseDifferenceToYesterday: { type: Number },
         };
     }
 
@@ -35,6 +37,8 @@ class CoronaMonitor extends LitElement {
         this.showAllCountriesInList = false;
         this.finlandInfectedCount = 0;
         this.cumulativeInfectionsChart = null;
+        this.increaseTodayIsHigher = false;
+        this.caseDifferenceToYesterday = 0;
     }
 
     firstUpdated(_changedProperties) {
@@ -160,6 +164,7 @@ class CoronaMonitor extends LitElement {
         let infectionPercentageDiv = this.shadowRoot.querySelector('#infection-percentage');
         let mortalityRateDiv = this.shadowRoot.querySelector('#mortality-rate');
         let recoveredCountDiv = this.shadowRoot.querySelector('#recovered-count');
+        let increaseTodayDiv = this.shadowRoot.querySelector('#increase-today');
 
         infectionCountDiv.querySelector('h2').innerText = mortalityData.confirmedCount;
         recoveredCountDiv.querySelector('h2').innerText = mortalityData.recoveredCount;
@@ -168,6 +173,9 @@ class CoronaMonitor extends LitElement {
             100
         ).toFixed(5)}%`;
         mortalityRateDiv.querySelector('h2').innerText = `${mortalityData.mortalityRate}%`;
+        increaseTodayDiv.querySelector('h2').innerText = `${mortalityData.increaseToday}`;
+        this.increaseTodayIsHigher = mortalityData.increaseToday > mortalityData.increaseYesterday;
+        this.caseDifferenceToYesterday = Math.abs(mortalityData.increaseToday - mortalityData.increaseYesterday);
     }
 
     createInfectionsSourcePercentageChart(infectionsBySourceCountry) {
@@ -239,6 +247,33 @@ class CoronaMonitor extends LitElement {
                 <div class="numbers" id="mortality-rate">
                     <p>${Translator.get('mortality_rate')}</p>
                     <h2></h2>
+                </div>
+                <div class="numbers" id="increase-today">
+                    <p>${Translator.get('increase_today')}</p>
+                    <div class="numbers-with-arrows">
+                        ${this.increaseTodayIsHigher
+                            ? html`
+                                  <i class="material-icons recovered-numbers">keyboard_arrow_up</i>
+                              `
+                            : html`
+                                  <i class="material-icons confirmed-numbers">keyboard_arrow_down</i>
+                              `}
+                        <h2 class="confirmed-numbers"></h2>
+                    </div>
+                    ${this.increaseTodayIsHigher
+                        ? html`
+                              <p class="numbers-subtitle">
+                                  <span class="confirmed-numbers">${this.caseDifferenceToYesterday}</span>
+                                  ${Translator.get('more_cases_than_yesterday')}
+                              </p>
+                          `
+                        : html`
+                              <p class="numbers-subtitle">
+                                  <span class="recovered-numbers">${this.caseDifferenceToYesterday}</span>
+                                  ${Translator.get('less_cases_than_yesterday')}
+                              </p>
+                              \`
+                          `}
                 </div>
                 <h3>${Translator.get('infection_count')}</h3>
                 <div id="infections-by-region">

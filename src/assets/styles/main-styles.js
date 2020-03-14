@@ -106,6 +106,34 @@ const styles = css`
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        position: relative;
+    }
+
+    .data-wrapper > .numbers > .numbers-subtitle {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        margin: 0 0 3px 0;
+        width: 100%;
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    .data-wrapper > .numbers > .numbers-with-arrows {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 0 1rem 0 0;
+    }
+
+    .data-wrapper > .numbers > .numbers-with-arrows > i {
+        font-size: 4rem;
+    }
+
+    .data-wrapper > .numbers > .numbers-with-arrows > h2 {
+        font-size: 3rem;
+        width: max-content;
     }
 
     .data-wrapper > .global-numbers {

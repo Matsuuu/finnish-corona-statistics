@@ -40,7 +40,10 @@
     "infections_originated_from_finland_vs_other_sources": "Suomesta vs Ulkomailta lähtöisin olleet tartunnat",
     "infection_count_cumulative": "Sairastuneiden määrä (Kumulatiivinen)",
     "recovered_count_cumulative": "Parantuneiden määrä (Kumulatiivinen)",
-    "filter_data_starting_from_date": "Suodata alkaen päivästä"
+    "filter_data_starting_from_date": "Suodata alkaen päivästä",
+    "increase_today": "Kasvu tänään",
+    "more_cases_than_yesterday": "tapausta enemmän kuin eilen",
+    "less_cases_than_yesterday": "tapausta vähemmän kuin eilen"
   },
   "en": {
     "lang_name": "English",
@@ -83,7 +86,10 @@
     "infections_originated_from_finland_vs_other_sources": "Infections originated from Finland vs outside of Finland",
     "infection_count_cumulative": "Infected count (Cumulative)",
     "recovered_count_cumulative": "Recovered count (Cumulative)",
-    "filter_data_starting_from_date": "Filter starting from date"
+    "filter_data_starting_from_date": "Filter starting from date",
+    "increase_today": "Increase today",
+    "more_cases_than_yesterday": "more cases than yesterday",
+    "less_cases_than_yesterday": "less cases than yesterday"
   },
   "sv": {
     "lang_name": "Svenska",
@@ -126,7 +132,10 @@
     "infections_originated_from_finland_vs_other_sources": "Infektioner härstammade från Finland vs utanför Finland",
     "infection_count_cumulative": "Antal infekterade (kumulativ)",
     "recovered_count_cumulative": "Antal tillfrisknade (kumulativ)",
-    "filter_data_starting_from_date": "Filtrera data från och med datum"
+    "filter_data_starting_from_date": "Filtrera data från och med datum",
+    "increase_today": "Tillväxt idag",
+    "more_cases_than_yesterday": "fler fall än i går",
+    "less_cases_than_yesterday": "färre fall än i går"
   }, 
   "et": {
     "lang_name": "Eesti",
@@ -169,6 +178,9 @@
     "infections_originated_from_finland_vs_other_sources": "Nakkuse pärinemine Soomesiseselt vs välisriikidest",
     "infection_count_cumulative": "Nakatute arv (kumulatiivne)",
     "recovered_count_cumulative": "Taastunute arv (kumulatiivne)",
-    "filter_data_starting_from_date": "Filtreeri alates"
+    "filter_data_starting_from_date": "Filtreeri alates",
+    "increase_today": "Kasv täna",
+    "more_cases_than_yesterday": "juhtumit rohkem kui eile",
+    "less_cases_than_yesterday": "juhtumit vähem kui eile"
   }
 }

@@ -90,6 +90,18 @@ export default class ChartDataParser {
         let deathCount = apiData.deaths.length;
         let mortalityRate = confirmedCount > 0 && deathCount == 0 ? 0 : confirmedCount / deathCount;
         let recoveredCount = apiData.recovered.length;
-        return { confirmedCount, deathCount, mortalityRate, recoveredCount };
+
+        let todayMidnight = dayjs(new Date())
+            .set('hour', 0)
+            .set('minute', 0)
+            .set('second', 0);
+        let yesterdayMidnight = todayMidnight.subtract(1, 'day');
+        let increaseToday = apiData.confirmed.filter(confirmedCase => dayjs(confirmedCase.date).isAfter(todayMidnight))
+            .length;
+        let increaseYesterday = apiData.confirmed.filter(confirmedCase => {
+            let dateObj = dayjs(confirmedCase.date);
+            return dateObj.isAfter(yesterdayMidnight) && dateObj.isBefore(todayMidnight);
+        }).length;
+        return { confirmedCount, deathCount, mortalityRate, recoveredCount, increaseToday, increaseYesterday };
     }
 }
