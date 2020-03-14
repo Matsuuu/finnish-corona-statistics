@@ -51,7 +51,7 @@ class DataGatherer {
 
     static csvToJson(data) {
         let headers = [];
-        let jsonData = {};
+        let jsonData = [];
         let rowSeperatedData = data.split('\n');
         for (let header of rowSeperatedData[0].split(',')) {
             header = header
@@ -74,18 +74,21 @@ class DataGatherer {
                 jsonDataObject[headers[h]] = commaSeperatedData[h];
             }
             let country = jsonDataObject.country_or_region;
-            if (!jsonData[country]) {
-                jsonData[country] = {};
-                jsonData[country].reports = [];
-                jsonData[country].totalConfirmed = 0;
-                jsonData[country].totalDeaths = 0;
-                jsonData[country].totalRecovered = 0;
+            let existingEntry = jsonData.find(entry => entry.name === country);
+            let jsonDataEntry;
+            if (existingEntry) {
+                jsonDataEntry = existingEntry;
+            } else {
+                jsonDataEntry = { name: country, reports: [], totalConfirmed: 0, totalDeaths: 0, totalRecovered: 0 };
+                jsonData.push(jsonDataEntry);
             }
-            jsonData[country].reports.push(jsonDataObject);
-            jsonData[country].totalConfirmed += Number(jsonDataObject.confirmed);
-            jsonData[country].totalDeaths += Number(jsonDataObject.deaths);
-            jsonData[country].totalRecovered += Number(jsonDataObject.recovered);
+
+            jsonDataEntry.reports.push(jsonDataObject);
+            jsonDataEntry.totalConfirmed += Number(jsonDataObject.confirmed);
+            jsonDataEntry.totalDeaths += Number(jsonDataObject.deaths);
+            jsonDataEntry.totalRecovered += Number(jsonDataObject.recovered);
         }
+        jsonData.sort((a, b) => b.totalConfirmed - a.totalConfirmed);
         return jsonData;
     }
 }

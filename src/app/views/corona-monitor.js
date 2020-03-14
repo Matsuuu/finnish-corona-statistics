@@ -71,6 +71,7 @@ class CoronaMonitor extends LitElement {
     async getApiData() {
         this.apiData = await fetch(this.apiUrl).then(res => res.json());
         this.globalApiData = await fetch(this.globalApiUrl).then(res => res.json());
+        console.log(this.globalApiData);
         this.renderElements();
     }
 
@@ -157,8 +158,7 @@ class CoronaMonitor extends LitElement {
         let globalConfirmed = 0;
         let globalRecovered = 0;
         let globalDeaths = 0;
-        for (let countryKey of Object.keys(this.globalApiData)) {
-            let country = this.globalApiData[countryKey];
+        for (let country of this.globalApiData) {
             globalConfirmed += Number(country.totalConfirmed);
             globalRecovered += Number(country.totalRecovered);
             globalDeaths += Number(country.totalDeaths);
@@ -270,26 +270,23 @@ class CoronaMonitor extends LitElement {
                 <div class="country-infection-numbers-list">
                     <div class="country-infection-statistics">
                         ${this.globalApiData
-                            ? Object.keys(this.globalApiData).map((country, i) => {
+                            ? this.globalApiData.map((country, i) => {
                                   if (!this.showAllCountriesInList && i > 10) {
                                       return;
                                   }
                                   return html`
                                       <div class="country-infection-number-row">
-                                          <p>${country}</p>
+                                          <p>${country.name}</p>
                                           <p class="confirmed-numbers">
-                                              ${Translator.get('infected')}:
-                                              ${this.globalApiData[country].totalConfirmed}
-                                              ${this.mortalityData.confirmedCount <
-                                              this.globalApiData[country].totalConfirmed
+                                              ${Translator.get('infected')}: ${country.totalConfirmed}
+                                              ${this.mortalityData.confirmedCount < country.totalConfirmed
                                                   ? html`
                                                         <i class="material-icons recovered-numbers"
                                                             >keyboard_arrow_up</i
                                                         >
                                                     `
                                                   : html`
-                                                        ${this.mortalityData.confirmedCount ===
-                                                        this.globalApiData[country].totalConfirmed
+                                                        ${this.mortalityData.confirmedCount === country.totalConfirmed
                                                             ? html`
                                                                   <span class="gray">=</span>
                                                               `
@@ -301,18 +298,15 @@ class CoronaMonitor extends LitElement {
                                                     `}
                                           </p>
                                           <p class="recovered-numbers">
-                                              ${Translator.get('recovered')}:
-                                              ${this.globalApiData[country].totalRecovered}
-                                              ${this.mortalityData.recoveredCount <
-                                              this.globalApiData[country].totalRecovered
+                                              ${Translator.get('recovered')}: ${country.totalRecovered}
+                                              ${this.mortalityData.recoveredCount < country.totalRecovered
                                                   ? html`
                                                         <i class="material-icons recovered-numbers"
                                                             >keyboard_arrow_up</i
                                                         >
                                                     `
                                                   : html`
-                                                        ${this.mortalityData.recoveredCount ===
-                                                        this.globalApiData[country].totalRecovered
+                                                        ${this.mortalityData.recoveredCount === country.totalRecovered
                                                             ? html`
                                                                   <span class="gray">=</span>
                                                               `
@@ -324,16 +318,15 @@ class CoronaMonitor extends LitElement {
                                                     `}
                                           </p>
                                           <p class="deaths-numbers">
-                                              ${Translator.get('deaths')}: ${this.globalApiData[country].totalDeaths}
-                                              ${this.mortalityData.deathCount < this.globalApiData[country].totalDeaths
+                                              ${Translator.get('deaths')}: ${country.totalDeaths}
+                                              ${this.mortalityData.deathCount < country.totalDeaths
                                                   ? html`
                                                         <i class="material-icons recovered-numbers"
                                                             >keyboard_arrow_up</i
                                                         >
                                                     `
                                                   : html`
-                                                        ${this.mortalityData.deathCount ===
-                                                        this.globalApiData[country].totalDeaths
+                                                        ${this.mortalityData.deathCount === country.totalDeaths
                                                             ? html`
                                                                   <span class="gray">=</span>
                                                               `
