@@ -71,7 +71,6 @@ class CoronaMonitor extends LitElement {
     async getApiData() {
         this.apiData = await fetch(this.apiUrl).then(res => res.json());
         this.globalApiData = await fetch(this.globalApiUrl).then(res => res.json());
-        console.log(this.globalApiData);
         this.renderElements();
     }
 
@@ -90,6 +89,29 @@ class CoronaMonitor extends LitElement {
         this.createMortalityRateNumber(mortalityData);
         this.createInfectionsSourcePercentageChart(infectionsBySourceCountry);
         this.createGlobalNumbers();
+        setTimeout(() => {
+            this.setDateFieldsToOneMonthAgo(infectionsByDay, recoveredByDay);
+        }, 100);
+    }
+
+    setDateFieldsToOneMonthAgo(infectionsByDay, recoveredByDay) {
+        let cumulativeDateField = this.shadowRoot.querySelector('#cumulative-chart-date-input');
+        let oneMonthAgo = dayjs(new Date())
+            .set('hour', 0)
+            .set('minute', 0)
+            .set('second', 0)
+            .subtract(30, 'day');
+        let oneMonthAgoAsDateString = oneMonthAgo.format('YYYY-MM-DD');
+        let oneMonthAgoTimeStamp = oneMonthAgo.unix();
+        cumulativeDateField.value = oneMonthAgoAsDateString;
+
+        let chartConfig = ChartDataBuilder.getInfectionsByDayChartCumulative(
+            infectionsByDay,
+            recoveredByDay,
+            oneMonthAgoTimeStamp
+        );
+        this.cumulativeInfectionsChart.config = chartConfig;
+        this.cumulativeInfectionsChart.update();
     }
 
     createRegionalInfectionChart(infectionsByRegion) {
@@ -228,7 +250,11 @@ class CoronaMonitor extends LitElement {
                 <div id="infections-total-cumulative">
                     <canvas id="infections-total-cumulative-chart-area"></canvas>
                     <p>${Translator.get('filter_data_starting_from_date')}</p>
-                    <input type="date" @change="${this.handleCumulativeChartDateChange}" />
+                    <input
+                        id="cumulative-chart-date-input"
+                        type="date"
+                        @change="${this.handleCumulativeChartDateChange}"
+                    />
                 </div>
                 <h3>${Translator.get('infection_source')}</h3>
                 <div id="infection-source-countries">
