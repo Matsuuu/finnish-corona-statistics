@@ -43,7 +43,8 @@
     "filter_data_starting_from_date": "Suodata alkaen päivästä",
     "increase_today": "Kasvu tänään",
     "more_cases_than_yesterday": "tapausta enemmän kuin eilen",
-    "less_cases_than_yesterday": "tapausta vähemmän kuin eilen"
+    "less_cases_than_yesterday": "tapausta vähemmän kuin eilen",
+    "growth_from_yesterday":"Kasvu eilisestä"
   },
   "en": {
     "lang_name": "English",
@@ -89,7 +90,8 @@
     "filter_data_starting_from_date": "Filter starting from date",
     "increase_today": "Increase today",
     "more_cases_than_yesterday": "more cases than yesterday",
-    "less_cases_than_yesterday": "less cases than yesterday"
+    "less_cases_than_yesterday": "less cases than yesterday",
+    "growth_from_yesterday":"Growth from yesterday"
   },
   "sv": {
     "lang_name": "Svenska",
@@ -135,7 +137,8 @@
     "filter_data_starting_from_date": "Filtrera data från och med datum",
     "increase_today": "Tillväxt idag",
     "more_cases_than_yesterday": "fler fall än i går",
-    "less_cases_than_yesterday": "färre fall än i går"
+    "less_cases_than_yesterday": "färre fall än i går",
+    "growth_from_yesterday":"Tillväxt från gårdagens"
   }, 
   "et": {
     "lang_name": "Eesti",
@@ -181,6 +184,7 @@
     "filter_data_starting_from_date": "Filtreeri alates",
     "increase_today": "Kasv täna",
     "more_cases_than_yesterday": "juhtumit rohkem kui eile",
-    "less_cases_than_yesterday": "juhtumit vähem kui eile"
+    "less_cases_than_yesterday": "juhtumit vähem kui eile",
+    "growth_from_yesterday":"Kasv eilsega võrreldes"
   }
 }

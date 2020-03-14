@@ -85,6 +85,7 @@ class CoronaMonitor extends LitElement {
         let recoveredByDay = ChartDataParser.getRecoveriesByDay(this.apiData);
         let deathsByDay = ChartDataParser.getDeathsByDay(this.apiData);
         let mortalityData = ChartDataParser.getMortalityRate(this.apiData);
+        console.log(mortalityData);
         this.mortalityData = mortalityData;
         this.createRegionalInfectionChart(infectionsByRegion);
         this.createSourceCountryChart(infectionsBySourceCountry);
@@ -165,6 +166,7 @@ class CoronaMonitor extends LitElement {
         let mortalityRateDiv = this.shadowRoot.querySelector('#mortality-rate');
         let recoveredCountDiv = this.shadowRoot.querySelector('#recovered-count');
         let increaseTodayDiv = this.shadowRoot.querySelector('#increase-today');
+        let growthFromYesterdayDiv = this.shadowRoot.querySelector('#growth-from-yesterday');
 
         infectionCountDiv.querySelector('h2').innerText = mortalityData.confirmedCount;
         recoveredCountDiv.querySelector('h2').innerText = mortalityData.recoveredCount;
@@ -174,6 +176,7 @@ class CoronaMonitor extends LitElement {
         ).toFixed(5)}%`;
         mortalityRateDiv.querySelector('h2').innerText = `${mortalityData.mortalityRate}%`;
         increaseTodayDiv.querySelector('h2').innerText = `${mortalityData.increaseToday}`;
+        growthFromYesterdayDiv.querySelector('h2').innerText = `${mortalityData.percentageGrowthFromYesterday}%`;
         this.increaseTodayIsHigher = mortalityData.increaseToday > mortalityData.increaseYesterday;
         this.caseDifferenceToYesterday = Math.abs(mortalityData.increaseToday - mortalityData.increaseYesterday);
     }
@@ -274,6 +277,10 @@ class CoronaMonitor extends LitElement {
                               </p>
                               \`
                           `}
+                </div>
+                <div class="numbers" id="growth-from-yesterday">
+                    <p>${Translator.get('growth_from_yesterday')}</p>
+                    <h2 class="confirmed-numbers"></h2>
                 </div>
                 <h3>${Translator.get('infection_count')}</h3>
                 <div id="infections-by-region">

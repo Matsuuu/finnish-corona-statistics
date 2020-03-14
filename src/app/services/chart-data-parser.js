@@ -102,6 +102,19 @@ export default class ChartDataParser {
             let dateObj = dayjs(confirmedCase.date);
             return dateObj.isAfter(yesterdayMidnight) && dateObj.isBefore(todayMidnight);
         }).length;
-        return { confirmedCount, deathCount, mortalityRate, recoveredCount, increaseToday, increaseYesterday };
+        let totalYesterday = apiData.confirmed.filter(confirmedCase => {
+            let dateObj = dayjs(confirmedCase.date);
+            return dateObj.isBefore(todayMidnight);
+        }).length;
+        let percentageGrowthFromYesterday = Math.round((confirmedCount / totalYesterday) * 100 - 100);
+        return {
+            confirmedCount,
+            deathCount,
+            mortalityRate,
+            recoveredCount,
+            increaseToday,
+            increaseYesterday,
+            percentageGrowthFromYesterday,
+        };
     }
 }
