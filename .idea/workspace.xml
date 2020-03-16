@@ -2,12 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a0cbf1f-a550-4ed4-bc5e-9b56b5d4d906" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/app/fevermap-root.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/views/fevermap-landing.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/corona-data.json" beforeDir="false" afterPath="$PROJECT_DIR$/corona-data.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corona-data.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-gatherer/data-gatherer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-gatherer/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-gatherer/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/services/chart-data-parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/chart-data-parser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/corona-monitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/corona-monitor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global-corona-data.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/corona-monitor-root.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/chart-data-builder.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/chart-data-parser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/views/corona-monitor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/android-chrome-192x192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/apple-touch-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/browserconfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/favicon-16x16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/favicon-32x32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/mstile-150x150.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/preview-image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/safari-pinned-tab.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/site.webmanifest" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/assets/language/translations.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/language/translations.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/styles/main-styles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/styles/material-icons.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,9 +62,15 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="prettierjs.PrettierConfiguration.Package" value="/usr/lib/node_modules/prettier" />
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/assets/styles/views" />
+    </key>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -69,6 +101,10 @@
       <workItem from="1583931984103" duration="14219000" />
       <workItem from="1584086054670" duration="11586000" />
       <workItem from="1584102657042" duration="575000" />
+      <workItem from="1584186798390" duration="707000" />
+      <workItem from="1584192210556" duration="8721000" />
+      <workItem from="1584339635805" duration="455000" />
+      <workItem from="1584340092627" duration="4400000" />
     </task>
     <servers />
   </component>
@@ -76,27 +112,43 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="1150" y="813" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584340955775">
+      <screen x="0" y="38" width="3840" height="2122" />
+    </state>
+    <state x="1150" y="813" key="#com.intellij.fileTypes.FileTypeChooser/0.38.3840.2122@0.38.3840.2122" timestamp="1584340955775" />
+    <state x="1394" y="603" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1584192663746">
+      <screen x="0" y="38" width="3840" height="2122" />
+    </state>
+    <state x="1394" y="603" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.38.3840.2122@0.38.3840.2122" timestamp="1584192663746" />
     <state x="603" y="248" key="EditFileWatcherDialog" timestamp="1583790748984">
       <screen x="0" y="19" width="1920" height="1061" />
     </state>
     <state x="603" y="248" key="EditFileWatcherDialog/0.19.1920.1061@0.19.1920.1061" timestamp="1583790748984" />
+    <state x="1491" y="628" width="852" height="957" key="FileChooserDialogImpl" timestamp="1584340088467">
+      <screen x="0" y="38" width="3840" height="2122" />
+    </state>
+    <state x="1491" y="628" width="852" height="957" key="FileChooserDialogImpl/0.38.3840.2122@0.38.3840.2122" timestamp="1584340088467" />
     <state x="451" y="135" key="SettingsEditor" timestamp="1583790749948">
       <screen x="0" y="19" width="1920" height="1061" />
     </state>
     <state x="451" y="135" key="SettingsEditor/0.19.1920.1061@0.19.1920.1061" timestamp="1583790749948" />
-    <state x="1202" y="510" width="1603" height="1266" key="find.popup" timestamp="1584101569893">
+    <state x="1490" y="931" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1584200620592">
+      <screen x="0" y="38" width="3840" height="2122" />
+    </state>
+    <state x="1490" y="931" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.38.3840.2122@0.38.3840.2122" timestamp="1584200620592" />
+    <state x="1202" y="510" width="1603" height="1266" key="find.popup" timestamp="1584344480146">
       <screen x="0" y="38" width="3840" height="2122" />
     </state>
     <state x="601" y="255" width="717" height="562" key="find.popup/0.19.1920.1061@0.19.1920.1061" timestamp="1583839127690" />
-    <state x="1202" y="510" width="1603" height="1266" key="find.popup/0.38.3840.2122@0.38.3840.2122" timestamp="1584101569893" />
-    <state x="1244" y="478" key="run.anything.popup" timestamp="1584176718463">
+    <state x="1202" y="510" width="1603" height="1266" key="find.popup/0.38.3840.2122@0.38.3840.2122" timestamp="1584344480146" />
+    <state x="1244" y="478" key="run.anything.popup" timestamp="1584200644238">
       <screen x="0" y="38" width="3840" height="2122" />
     </state>
     <state x="622" y="239" key="run.anything.popup/0.19.1920.1061@0.19.1920.1061" timestamp="1583798815706" />
-    <state x="1244" y="478" key="run.anything.popup/0.38.3840.2122@0.38.3840.2122" timestamp="1584176718463" />
-    <state x="1225" y="38" width="1385" height="2118" key="search.everywhere.popup" timestamp="1584180610349">
+    <state x="1244" y="478" key="run.anything.popup/0.38.3840.2122@0.38.3840.2122" timestamp="1584200644238" />
+    <state x="1225" y="38" width="1385" height="2118" key="search.everywhere.popup" timestamp="1584344483877">
       <screen x="0" y="38" width="3840" height="2122" />
     </state>
-    <state x="1225" y="38" width="1385" height="2118" key="search.everywhere.popup/0.38.3840.2122@0.38.3840.2122" timestamp="1584180610349" />
+    <state x="1225" y="38" width="1385" height="2118" key="search.everywhere.popup/0.38.3840.2122@0.38.3840.2122" timestamp="1584344483877" />
   </component>
 </project>
