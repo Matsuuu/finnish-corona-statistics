@@ -4,6 +4,10 @@
     "language": "Kieli",
     "corona_info_title": "Korona info",
     "corona_info_subtitle": "Korona-Info on luotu tarjoamaan ihmisille reaaliaikaista tietoa Korona-viruksen tilasta Suomessa.",
+    "corona_info_disclaimer": "Tartuntaepäilyjen testaamiskäytäntöjä kiristettiin Suomessa 14. maaliskuuta. Luvut eivät välttämättä enää kuvaa tarkasti tartuntatilannetta, sillä kaikkia virusepäilyjä ei testata.",
+    "fever_map_invitation":  "Kehitämme sovellusta, joka sallisi mahdollisten koronavirus tapausten seuraamisen maailmanlaajuisesti.",
+    "fever_map_link_text": "Ilmoittaudu mukaan, niin kerromme kun sovellus on valmis.",
+
     "corona_as_numbers": "Koronavirus numeroina",
     "infection_count": "Tartuntojen määrä",
     "recovered_count": "Parantuneiden määrä",
@@ -51,6 +55,10 @@
     "language": "Language",
     "corona_info_title": "Corona info",
     "corona_info_subtitle": "Corona info was created to provide people with real time information about the status of Coronavirus in Finland",
+    "corona_info_disclaimer": "Testing practices for suspected infections were tightened in Finland on 14 March. The figures may no longer accurately reflect the infection, as not all virus suspects are tested.",
+    "fever_map_invitation":  "We are developing an application that would allow for worldwide monitoring of potential coronavirus cases.",
+    "fever_map_link_text": "Sign up and we'll let you know when the app is ready.",
+
     "corona_as_numbers": "Coronavirus as numbers",
     "infection_count": "Confirmed cases",
     "recovered_count": "Recovered cases",
@@ -98,6 +106,10 @@
     "language": "Språk",
     "corona_info_title": "Corona info",
     "corona_info_subtitle": "Corona info skapades för att förse människor med information i realtid med Coronavirus statuse i Finland",
+    "corona_info_disclaimer": "Testmetoderna för misstänkta infektioner skärpdes i Finland den 14 mars. Siffrorna kanske inte längre exakt återspeglar infektionen, eftersom inte alla virus misstänkta testas.",
+    "fever_map_invitation":  "Vi utvecklar en applikation som möjliggör övervakning över hela världen av potentiella fall av coronavirus.",
+    "fever_map_link_text": "Registrera dig så meddelar vi dig när appen är klar..",
+
     "corona_as_numbers": "Coronavirus i siffror",
     "infection_count": "Antalet smittofall",
     "recovered_count": "Friskförklarade",
@@ -145,6 +157,10 @@
     "language": "Keel",
     "corona_info_title": "Koroona info",
     "corona_info_subtitle": "Koroona info loodi eesmärgiga pakkuda inimestele reaalajas infot Koroonaviiruse staatusest Soomes",
+    "corona_info_disclaimer": "Nakkuskahtluse testimise tava karmistati Soomes 14. märtsil. Need arvud ei pruugi nakkust enam täpselt kajastada, kuna kõiki viiruses kahtlustatavaid ei testita.",
+    "fever_map_invitation":  "Töötame välja rakenduse, mis võimaldaks võimalike koroonaviiruse juhtumite ülemaailmset jälgimist.",
+    "fever_map_link_text": "Registreeruge ja anname teile teada, kui rakendus on valmis.",
+
     "corona_as_numbers": "Koroonaviiruse numbrid",
     "infection_count": "Kinnitatud juhtumid",
     "recovered_count": "Taastunud juhtumid",

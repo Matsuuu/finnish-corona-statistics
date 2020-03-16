@@ -5,7 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/corona-data.json" beforeDir="false" afterPath="$PROJECT_DIR$/corona-data.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/services/chart-data-parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/chart-data-parser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global-corona-data.json" beforeDir="false" afterPath="$PROJECT_DIR$/global-corona-data.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/views/corona-monitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/corona-monitor.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/assets/language/translations.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/language/translations.json" afterDir="false" />
     </list>
@@ -35,7 +35,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../corona-reporter" />
     <property name="prettierjs.PrettierConfiguration.Package" value="/usr/lib/node_modules/prettier" />
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
@@ -69,6 +69,8 @@
       <workItem from="1583931984103" duration="14219000" />
       <workItem from="1584086054670" duration="11586000" />
       <workItem from="1584102657042" duration="575000" />
+      <workItem from="1584187507216" duration="601000" />
+      <workItem from="1584369972360" duration="542000" />
     </task>
     <servers />
   </component>
@@ -80,6 +82,10 @@
       <screen x="0" y="19" width="1920" height="1061" />
     </state>
     <state x="603" y="248" key="EditFileWatcherDialog/0.19.1920.1061@0.19.1920.1061" timestamp="1583790748984" />
+    <state x="1494" y="618" key="FileChooserDialogImpl" timestamp="1584186795119">
+      <screen x="0" y="38" width="3840" height="2122" />
+    </state>
+    <state x="1494" y="618" key="FileChooserDialogImpl/0.38.3840.2122@0.38.3840.2122" timestamp="1584186795119" />
     <state x="451" y="135" key="SettingsEditor" timestamp="1583790749948">
       <screen x="0" y="19" width="1920" height="1061" />
     </state>

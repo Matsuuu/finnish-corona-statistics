@@ -232,6 +232,11 @@ class CoronaMonitor extends LitElement {
             <div class="about-section">
                 <h1>${Translator.get('corona_info_title')}</h1>
                 <p>${Translator.get('corona_info_subtitle')}</p>
+                <p>${Translator.get('corona_info_disclaimer')}</p>
+                <p>
+                    ${Translator.get('fever_map_invitation')}
+                    <a target="_blank" href="https://fevermap.net/">${Translator.get('fever_map_link_text')}</a>
+                </p>
             </div>
             <div class="data-wrapper">
                 <h3>${Translator.get('corona_as_numbers')}</h3>
