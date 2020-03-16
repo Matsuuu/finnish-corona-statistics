@@ -1,2 +1,1 @@
-import './app/fevermap-root';
-import './assets/styles/base.scss';
+import './app/corona-monitor-root';
