@@ -61,7 +61,7 @@ export default class ChartDataBuilder {
                 labels: labelsWithCounts,
             },
             options: {
-                aspectRatio: window.innerWidth > 720 ? 1.25 : 0.5,
+                aspectRatio: window.innerWidth > 720 ? 0.75 : 0.5,
                 title: {
                     fontSize: 18,
                     display: true,

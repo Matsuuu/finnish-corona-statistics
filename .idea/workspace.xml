@@ -6,8 +6,8 @@
       <change beforePath="$PROJECT_DIR$/corona-data.json" beforeDir="false" afterPath="$PROJECT_DIR$/corona-data.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/global-corona-data.json" beforeDir="false" afterPath="$PROJECT_DIR$/global-corona-data.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/corona-monitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/corona-monitor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/language/translations.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/language/translations.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/chart-data-builder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/chart-data-builder.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/chart-data-parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/chart-data-parser.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +70,8 @@
       <workItem from="1584086054670" duration="11586000" />
       <workItem from="1584102657042" duration="575000" />
       <workItem from="1584187507216" duration="601000" />
-      <workItem from="1584369972360" duration="542000" />
+      <workItem from="1584369972360" duration="815000" />
+      <workItem from="1584797917284" duration="413000" />
     </task>
     <servers />
   </component>

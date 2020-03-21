@@ -88,7 +88,8 @@ export default class ChartDataParser {
     static getMortalityRate(apiData) {
         let confirmedCount = apiData.confirmed.length;
         let deathCount = apiData.deaths.length;
-        let mortalityRate = confirmedCount > 0 && deathCount == 0 ? 0 : confirmedCount / deathCount;
+        let mortalityRate =
+            confirmedCount > 0 && deathCount == 0 ? 0 : ((deathCount / confirmedCount) * 100).toFixed(3);
         let recoveredCount = apiData.recovered.length;
 
         let todayMidnight = dayjs(new Date())
