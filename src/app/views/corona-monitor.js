@@ -310,6 +310,9 @@ class CoronaMonitor extends LitElement {
                 <div id="infections-source-country-percentages">
                     <canvas id="infections-source-country-percentages-chart-area"></canvas>
                 </div>
+                ${true
+                    ? html``
+                    : html`
                 <h3>${Translator.get('global_statistics')}</h3>
                 <p>${Translator.get('data_might_not_be_in_sync_with_hs')}</p>
                 <div class="numbers global-numbers" id="total-global-infections">
@@ -342,110 +345,119 @@ class CoronaMonitor extends LitElement {
                 </p>
                 <div class="country-infection-numbers-list">
                     <div class="country-infection-statistics">
-                        ${this.globalApiData
-                            ? this.globalApiData.map((country, i) => {
-                                  if (!this.showAllCountriesInList && i > 10) {
-                                      return;
-                                  }
-                                  return html`
-                                      <div class="country-infection-number-row">
-                                          <p>${country.name}</p>
-                                          <p class="confirmed-numbers">
-                                              ${Translator.get('infected')}: ${country.totalConfirmed}
-                                              ${this.mortalityData.confirmedCount < country.totalConfirmed
-                                                  ? html`
-                                                        <i class="material-icons recovered-numbers"
-                                                            >keyboard_arrow_up</i
-                                                        >
-                                                    `
-                                                  : html`
-                                                        ${this.mortalityData.confirmedCount === country.totalConfirmed
-                                                            ? html`
-                                                                  <span class="gray">=</span>
-                                                              `
-                                                            : html`
-                                                                  <i class="material-icons confirmed-numbers"
-                                                                      >keyboard_arrow_down</i
-                                                                  >
-                                                              `}
-                                                    `}
-                                          </p>
-                                          <p class="recovered-numbers">
-                                              ${Translator.get('recovered')}: ${country.totalRecovered}
-                                              ${this.mortalityData.recoveredCount < country.totalRecovered
-                                                  ? html`
-                                                        <i class="material-icons recovered-numbers"
-                                                            >keyboard_arrow_up</i
-                                                        >
-                                                    `
-                                                  : html`
-                                                        ${this.mortalityData.recoveredCount === country.totalRecovered
-                                                            ? html`
-                                                                  <span class="gray">=</span>
-                                                              `
-                                                            : html`
-                                                                  <i class="material-icons confirmed-numbers"
-                                                                      >keyboard_arrow_down</i
-                                                                  >
-                                                              `}
-                                                    `}
-                                          </p>
-                                          <p class="deaths-numbers">
-                                              ${Translator.get('deaths')}: ${country.totalDeaths}
-                                              ${this.mortalityData.deathCount < country.totalDeaths
-                                                  ? html`
-                                                        <i class="material-icons recovered-numbers"
-                                                            >keyboard_arrow_up</i
-                                                        >
-                                                    `
-                                                  : html`
-                                                        ${this.mortalityData.deathCount === country.totalDeaths
-                                                            ? html`
-                                                                  <span class="gray">=</span>
-                                                              `
-                                                            : html`
-                                                                  <i class="material-icons confirmed-numbers"
-                                                                      >keyboard_arrow_down</i
-                                                                  >
-                                                              `}
-                                                    `}
-                                          </p>
-                                      </div>
-                                  `;
-                              })
-                            : ''}
+                        ${
+                            this.globalApiData
+                                ? this.globalApiData.map((country, i) => {
+                                      if (!this.showAllCountriesInList && i > 10) {
+                                          return;
+                                      }
+                                      return html`
+                                          <div class="country-infection-number-row">
+                                              <p>${country.name}</p>
+                                              <p class="confirmed-numbers">
+                                                  ${Translator.get('infected')}: ${country.totalConfirmed}
+                                                  ${this.mortalityData.confirmedCount < country.totalConfirmed
+                                                      ? html`
+                                                            <i class="material-icons recovered-numbers"
+                                                                >keyboard_arrow_up</i
+                                                            >
+                                                        `
+                                                      : html`
+                                                            ${this.mortalityData.confirmedCount ===
+                                                            country.totalConfirmed
+                                                                ? html`
+                                                                      <span class="gray">=</span>
+                                                                  `
+                                                                : html`
+                                                                      <i class="material-icons confirmed-numbers"
+                                                                          >keyboard_arrow_down</i
+                                                                      >
+                                                                  `}
+                                                        `}
+                                              </p>
+                                              <p class="recovered-numbers">
+                                                  ${Translator.get('recovered')}: ${country.totalRecovered}
+                                                  ${this.mortalityData.recoveredCount < country.totalRecovered
+                                                      ? html`
+                                                            <i class="material-icons recovered-numbers"
+                                                                >keyboard_arrow_up</i
+                                                            >
+                                                        `
+                                                      : html`
+                                                            ${this.mortalityData.recoveredCount ===
+                                                            country.totalRecovered
+                                                                ? html`
+                                                                      <span class="gray">=</span>
+                                                                  `
+                                                                : html`
+                                                                      <i class="material-icons confirmed-numbers"
+                                                                          >keyboard_arrow_down</i
+                                                                      >
+                                                                  `}
+                                                        `}
+                                              </p>
+                                              <p class="deaths-numbers">
+                                                  ${Translator.get('deaths')}: ${country.totalDeaths}
+                                                  ${this.mortalityData.deathCount < country.totalDeaths
+                                                      ? html`
+                                                            <i class="material-icons recovered-numbers"
+                                                                >keyboard_arrow_up</i
+                                                            >
+                                                        `
+                                                      : html`
+                                                            ${this.mortalityData.deathCount === country.totalDeaths
+                                                                ? html`
+                                                                      <span class="gray">=</span>
+                                                                  `
+                                                                : html`
+                                                                      <i class="material-icons confirmed-numbers"
+                                                                          >keyboard_arrow_down</i
+                                                                      >
+                                                                  `}
+                                                        `}
+                                              </p>
+                                          </div>
+                                      `;
+                                  })
+                                : ''
+                        }
                     </div>
-                    ${!this.showAllCountriesInList
-                        ? html`
-                              <div
-                                  @click="${() => (this.showAllCountriesInList = true)}"
-                                  class="country-infection-numbers-list-show-all-button"
-                              >
-                                  <p>. . .</p>
-                              </div>
-                          `
-                        : ''}
+                    ${
+                        !this.showAllCountriesInList
+                            ? html`
+                                  <div
+                                      @click="${() => (this.showAllCountriesInList = true)}"
+                                      class="country-infection-numbers-list-show-all-button"
+                                  >
+                                      <p>. . .</p>
+                                  </div>
+                              `
+                            : ''
+                    }
                 </div>
-            </div>
-            <div class="footer">
-                <p>
-                    ${Translator.get('footer_info')}
-                </p>
-                <p>
-                    ${Translator.get('footer_finnish_data_info')}
-                    <a target="_blank" href="https://github.com/HS-Datadesk/koronavirus-avoindata"
-                        >${Translator.get('footer_finnish_data_link_text')}</a
+            </div>`}
+                <div class="footer">
+                    <p>
+                        ${Translator.get('footer_info')}
+                    </p>
+                    <p>
+                        ${Translator.get('footer_finnish_data_info')}
+                        <a target="_blank" href="https://github.com/HS-Datadesk/koronavirus-avoindata"
+                            >${Translator.get('footer_finnish_data_link_text')}</a
+                        >
+                    </p>
+                    <p>
+                        ${Translator.get('footer_global_data_info')}
+                        <a target="_blank" href="https://github.com/CSSEGISandData/COVID-19"
+                            >${Translator.get('footer_global_data_link_text')}</a
+                        >
+                    </p>
+                    <a target="_blank" href="https://github.com/Matsuuu/finnish-corona-statistics/tree/master"
+                        >GitHub</a
                     >
-                </p>
-                <p>
-                    ${Translator.get('footer_global_data_info')}
-                    <a target="_blank" href="https://github.com/CSSEGISandData/COVID-19"
-                        >${Translator.get('footer_global_data_link_text')}</a
-                    >
-                </p>
-                <a target="_blank" href="https://github.com/Matsuuu/finnish-corona-statistics/tree/master">GitHub</a>
-                <a target="_blank" href="https://twitter.com/matsutuss">Twitter</a>
-                <a target="_blank" href="https://www.linkedin.com/in/matias-huhta-b0b159106">LinkedIn</a>
+                    <a target="_blank" href="https://twitter.com/matsutuss">Twitter</a>
+                    <a target="_blank" href="https://www.linkedin.com/in/matias-huhta-b0b159106">LinkedIn</a>
+                </div>
             </div>
         `;
     }

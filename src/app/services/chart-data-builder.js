@@ -144,7 +144,7 @@ export default class ChartDataBuilder {
                     },
                     {
                         label: Translator.get('death_cases'),
-                        data: Object.values(deathsByDay),
+                        data: deathsByDayData,
                         backgroundColor: colorArray[1],
                     },
                 ],
